@@ -2896,7 +2896,84 @@ function buildTorii() {
   const GS = .72;
   g.position.set(0, -BASE * GS, -8.6); g.scale.setScalar(GS);
   scene.add(g); WORLD.torii = g;
+  buildSubhadeepAvatar();
 }
+
+/* ========================================================
+   SUBHADEEP BHANDARI 3D INTERACTIVE AVATAR
+   ======================================================== */
+function buildSubhadeepAvatar() {
+  const avatarGroup = new THREE.Group();
+
+  const loader = new THREE.TextureLoader();
+  const avatarTex = loader.load('secret-pathways-assets/foreground/png/subhadeep_avatar.png', function(t) {
+    t.generateMipmaps = true;
+    t.minFilter = THREE.LinearMipmapLinearFilter;
+    t.magFilter = THREE.LinearFilter;
+    if (t.encoding !== undefined && THREE.sRGBEncoding !== undefined) {
+      t.encoding = THREE.sRGBEncoding;
+    }
+    t.needsUpdate = true;
+  });
+
+  // Human scale standing in front of the Sanmon Torii Gate:
+  // Height = 2.18m in world space, aspect ratio 344 / 1143
+  const H = 2.18;
+  const W = H * (344.0 / 1143.0); // ~0.656m
+
+  // Subdivided plane for smooth shading
+  const geo = new THREE.PlaneGeometry(W, H, 8, 16);
+  // Shift pivot to bottom center (feet at y = 0)
+  geo.translate(0, H / 2, 0);
+
+  const mat = new THREE.MeshStandardMaterial({
+    map: avatarTex,
+    transparent: true,
+    alphaTest: 0.08,
+    roughness: 0.70,
+    metalness: 0.12,
+    side: THREE.DoubleSide
+  });
+
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.castShadow = true;
+  mesh.receiveShadow = false;
+  avatarGroup.add(mesh);
+
+  // Soft contact drop shadow beneath feet
+  const shadowCanvas = cvs(128, 64);
+  const sx = shadowCanvas.getContext('2d');
+  const sGrad = sx.createRadialGradient(64, 32, 4, 64, 32, 60);
+  sGrad.addColorStop(0, 'rgba(0, 0, 0, 0.75)');
+  sGrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.35)');
+  sGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+  sx.fillStyle = sGrad;
+  sx.fillRect(0, 0, 128, 64);
+
+  const shadowTex = tx(shadowCanvas);
+  const shadowGeo = new THREE.PlaneGeometry(0.75, 0.42);
+  shadowGeo.rotateX(-Math.PI / 2);
+  const shadowMat = new THREE.MeshBasicMaterial({
+    map: shadowTex,
+    transparent: true,
+    depthWrite: false,
+    opacity: 0.85
+  });
+  const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+  shadowMesh.position.set(0, 0.015, 0.02);
+  avatarGroup.add(shadowMesh);
+
+  // Place Subhadeep proudly standing at the entrance threshold in front of the Torii gate
+  // Torii gate is at z = -8.6, y = -0.56. We place Subhadeep at z = -7.2.
+  const BASE_Y = -0.56;
+  avatarGroup.position.set(0.0, BASE_Y, -7.2);
+
+  scene.add(avatarGroup);
+  WORLD.subhadeep = avatarGroup;
+  WORLD.subhadeepMesh = mesh;
+  WORLD.subhadeepBaseY = BASE_Y;
+}
+
 
 function buildLantern(x, z, s, y) {
   const stone = lib('lanternStone', () => surface(lib('granite', () => texStone(17)), [1.5, 1.5],
@@ -4688,6 +4765,24 @@ function resize() {
 
 function updateWorld(dt) {
   WORLD.uT.value = clock;
+
+  /* Interactive Subhadeep 3D Avatar Cursor Motion & Ambient Breathing */
+  if (WORLD.subhadeep) {
+    const breath = Math.sin(clock * 1.8) * 0.012;
+    const sway = Math.sin(clock * 0.9) * 0.007;
+
+    // Body rotates and shifts smoothly toward mouse cursor
+    const targetRotY = (RIG.mx || 0) * 0.36;
+    const targetRotX = -(RIG.my || 0) * 0.10;
+    const targetPosX = (RIG.mx || 0) * 0.32;
+
+    WORLD.subhadeep.rotation.y = damp(WORLD.subhadeep.rotation.y, targetRotY, 7, dt);
+    WORLD.subhadeep.rotation.x = damp(WORLD.subhadeep.rotation.x, targetRotX, 7, dt);
+    WORLD.subhadeep.rotation.z = damp(WORLD.subhadeep.rotation.z, sway, 5, dt);
+    WORLD.subhadeep.position.x = damp(WORLD.subhadeep.position.x, targetPosX, 7, dt);
+    WORLD.subhadeep.position.y = (WORLD.subhadeepBaseY || -0.56) + breath;
+    WORLD.subhadeep.scale.y = 1 + breath * 0.4;
+  }
 
   /* the focused chapter warms the lanterns and swells the disc */
   RIG.focusAmt = damp(RIG.focusAmt, RIG.focus >= 0 ? 1 : 0, 5, dt);
