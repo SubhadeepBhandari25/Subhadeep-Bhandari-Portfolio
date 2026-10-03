@@ -141,7 +141,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .brand{ display:flex; align-items:center; gap:11px; flex:0 0 auto; }
 .brand svg{ width:34px; height:34px; display:block; }
 .brand-tx{ display:flex; flex-direction:column; line-height:1; gap:3px; }
-.brand-tx b{ font-size:12px; font-weight:500; letter-spacing:.26em; }
+.brand-tx b{ font-size:clamp(11px,1.1vw,13px); font-weight:600; letter-spacing:.18em; white-space:nowrap; }
 .brand-tx i{ font-style:normal; font-size:8px; letter-spacing:.34em; color:var(--muted); }
 .nav-links{ display:flex; gap:clamp(18px,2.6vw,46px); margin-left:auto; }
 .nav-link{
@@ -1004,7 +1004,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
       <path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/>
       <path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/>
     </svg>
-    <span class="brand-tx"><b>SUBHADEEP</b><i>COMPUTER SCIENCE · AI · DATA</i></span>
+    <span class="brand-tx"><b>SUBHADEEP BHANDARI</b><i>COMPUTER SCIENCE · AI · DATA</i></span>
     <span class="status-badge" title="Open to internships, AI/data engineering roles & research collaborations"><span class="status-pulse"></span> Open for Collaborations</span>
   </a>
   <nav class="nav-links" id="navlinks">
@@ -3156,6 +3156,7 @@ function buildWordmark() {
     WORD.glyphs.push(mesh);
   });
   group.position.z = WORD_Z;
+  group.visible = false;
   scene.add(group);
   WORD.group = group;
   WORD.ink = { xMin: xMin, xMax: xMax, cx: (xMin + xMax) / 2, w: xMax - xMin, asc: ascMax };
@@ -4727,7 +4728,7 @@ function updateWorld(dt) {
       const e = easeOut(st);
       g.position.y = g.userData.baseY - (1 - e) * (WORD.ink.asc * 1.15);
       g.material.opacity = e * (1 - near * .96);
-      g.visible = g.material.opacity > .004;
+      g.visible = false; g.material.opacity = 0;
     });
   }
   /* the cut-out layers dissolve as the camera reaches them, so the path can
