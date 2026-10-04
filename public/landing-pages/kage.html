@@ -3730,6 +3730,93 @@ function buildTorii() {
   const GS = .72;
   g.position.set(0, -BASE * GS, -8.6); g.scale.setScalar(GS);
   scene.add(g); WORLD.torii = g;
+  buildGateAvatar();
+}
+
+function texAvatarShadow() {
+  const c = cvs(256, 128), ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(128, 64, 0, 128, 64, 110);
+  g.addColorStop(0, 'rgba(8,6,12,0.80)');
+  g.addColorStop(0.32, 'rgba(12,9,18,0.52)');
+  g.addColorStop(0.70, 'rgba(16,12,24,0.18)');
+  g.addColorStop(1.0, 'rgba(20,15,30,0.0)');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(128, 64, 112, 50, 0, 0, Math.PI * 2);
+  ctx.fill();
+  return c;
+}
+
+function buildGateAvatar() {
+  const g = new THREE.Group();
+  /* Aspect ratio of 616x1940 HD cutout = 0.3175 */
+  const H = 5.45, W = H * (616 / 1940);
+
+  /* Texture loading with sRGB and anisotropic filtering */
+  const loader = new THREE.TextureLoader();
+  const avatarTex = loader.load(
+    './secret-pathways-assets/foreground/png/subhadeep_gate_avatar.webp',
+    tex => {
+      tex.encoding = THREE.sRGBEncoding;
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.anisotropy = Math.min(16, maxAniso);
+      tex.needsUpdate = true;
+    },
+    undefined,
+    () => {
+      loader.load('./secret-pathways-assets/foreground/png/subhadeep_gate_avatar.png', tex2 => {
+        tex2.encoding = THREE.sRGBEncoding;
+        tex2.generateMipmaps = true;
+        tex2.minFilter = THREE.LinearMipmapLinearFilter;
+        tex2.magFilter = THREE.LinearFilter;
+        tex2.anisotropy = Math.min(16, maxAniso);
+        if (WORLD.gateAvatarMat) {
+          WORLD.gateAvatarMat.map = tex2;
+          WORLD.gateAvatarMat.needsUpdate = true;
+        }
+      });
+    }
+  );
+
+  const mat = new THREE.MeshBasicMaterial({
+    map: avatarTex,
+    transparent: true,
+    alphaTest: 0.015,
+    side: THREE.DoubleSide,
+    depthWrite: true,
+    fog: true,
+    color: new THREE.Color(1.04, 1.02, 1.02)
+  });
+  WORLD.gateAvatarMat = mat;
+
+  /* Plane geometry translated so base pivot is at y=0 (standing on stone floor) */
+  const geo = new THREE.PlaneGeometry(W, H);
+  geo.translate(0, H / 2, 0);
+  const avatarMesh = new THREE.Mesh(geo, mat);
+  avatarMesh.renderOrder = 18;
+  g.add(avatarMesh);
+
+  /* Contact ground shadow on stone path */
+  const shadowGeo = new THREE.PlaneGeometry(W * 1.55, 1.25);
+  shadowGeo.rotateX(-Math.PI / 2);
+  const shadowMat = new THREE.MeshBasicMaterial({
+    map: tx(texAvatarShadow(), { srgb: false }),
+    transparent: true,
+    depthWrite: false,
+    opacity: 0.85
+  });
+  WORLD.gateAvatarShadowMat = shadowMat;
+  const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+  shadowMesh.position.set(0, 0.012, -0.06);
+  shadowMesh.renderOrder = 2;
+  g.add(shadowMesh);
+
+  /* Standing proudly centered in front of the Torii gate */
+  g.position.set(0, 0, -5.4);
+  scene.add(g);
+  WORLD.gateAvatar = g;
 }
 
 
@@ -5520,6 +5607,18 @@ function updateWorld(dt) {
     m.material.opacity = a;
     m.visible = a > .006;
   });
+  /* gate avatar: subtle breathing presence, gentle camera swivel, and smooth dissolve on passage */
+  if (WORLD.gateAvatar && WORLD.gateAvatarMat) {
+    const t = WORLD.uT ? WORLD.uT.value : clock;
+    WORLD.gateAvatar.position.y = Math.sin(t * 1.6) * 0.003;
+    const targetAngle = Math.atan2(camera.position.x - WORLD.gateAvatar.position.x, camera.position.z - WORLD.gateAvatar.position.z);
+    WORLD.gateAvatar.rotation.y = damp(WORLD.gateAvatar.rotation.y, targetAngle * 0.40, 3.8, dt);
+    const camDist = camera.position.z - WORLD.gateAvatar.position.z;
+    const a = smooth(1.4, 4.8, camDist);
+    WORLD.gateAvatarMat.opacity = a;
+    WORLD.gateAvatar.visible = a > 0.008;
+    if (WORLD.gateAvatarShadowMat) WORLD.gateAvatarShadowMat.opacity = a * 0.85;
+  }
   updateLeaves(dt);
   updateWisps(dt);
   if (CARDS.length) CARDS.forEach(C => { const u = C.cam.userData; u.push = damp(u.push, u.want, 3.4, dt); });
