@@ -558,17 +558,24 @@ body[data-layout-hero="b"] .hero-side .v{
   font-size:clamp(30px,3.2vw,54px); letter-spacing:.12em; color:rgba(223,231,224,.62);
 }
 
-/* — story B · spread: the title crosses two columns, the reading column is
-     held to the right, and the figures become a ruled band. */
+/* — story B · spread: portrait on left, reading column on right */
 body[data-layout-story="b"] .gate-grid{
-  grid-template-columns:minmax(120px,.38fr) minmax(0,1.08fr) minmax(280px,.88fr);
-  gap:clamp(20px,3vw,54px);
+  display:grid;
+  grid-template-columns:minmax(260px, 340px) minmax(0, 1fr);
+  gap:clamp(24px, 4vw, 54px);
+  align-items:center;
 }
-body[data-layout-story="b"] .gate-grid h2{ grid-column:1 / 3; max-width:13ch; }
-body[data-layout-story="b"] .gate-copy{ grid-column:3; }
-body[data-layout-story="b"] .gate-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+body[data-layout-story="b"] .gate-portrait{ grid-column:1; }
+body[data-layout-story="b"] .gate-text-col{ grid-column:2; display:flex; flex-direction:column; gap:20px; }
+body[data-layout-story="b"] .gate-text-col h2{ max-width:18ch; }
+body[data-layout-story="b"] .gate-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:clamp(28px, 4vh, 52px); }
 body[data-layout-story="b"] .gate-stats div{ min-height:108px; padding:18px; border-left:1px solid var(--line-soft); }
 body[data-layout-story="b"] .gate-stats div:last-child{ border-right:1px solid var(--line-soft); }
+@media (max-width: 900px){
+  body[data-layout-story="b"] .gate-grid{ grid-template-columns:1fr; gap:24px; }
+  body[data-layout-story="b"] .gate-portrait{ max-width:320px; margin:0 auto; }
+  body[data-layout-story="b"] .gate-text-col{ grid-column:1; }
+}
 
 /* — gardens B · balanced showcase: SatQuery AI and Ferry Forecast side-by-side with full widescreen previews */
 body[data-layout-gallery="b"] .cards{
@@ -976,6 +983,78 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   transform: translate(2px, -2px);
   background: rgba(224, 35, 28, 0.35);
   border-color: rgba(224, 35, 28, 0.7);
+}
+
+/* ========================================================
+   CHAPTER 01 PORTRAIT (SUBHADEEP BHANDARI)
+   ======================================================== */
+.gate-portrait {
+  position: relative;
+  width: 100%;
+}
+.gate-portrait-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(224, 35, 28, 0.35);
+  background: #090d12;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 32px rgba(224, 35, 28, 0.15);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, border-color 0.4s ease;
+  aspect-ratio: 581 / 945;
+}
+.gate-portrait-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  border-color: rgba(224, 35, 28, 0.65);
+  box-shadow: 0 28px 75px rgba(0, 0, 0, 0.85), 0 0 45px rgba(224, 35, 28, 0.3);
+}
+.gate-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  filter: contrast(1.04) brightness(0.98);
+}
+.gate-portrait-card:hover .gate-portrait-img {
+  transform: scale(1.03);
+  filter: contrast(1.06) brightness(1.02);
+}
+.gate-portrait-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(5, 8, 12, 0.88) 100%);
+  pointer-events: none;
+}
+.gate-portrait-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(8, 12, 16, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(224, 35, 28, 0.4);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #dfe7e0;
+  z-index: 2;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e0231c;
+  box-shadow: 0 0 8px #e0231c;
 }
 
 /* ========================================================
@@ -1435,19 +1514,29 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <span class="k"><b>01</b> — The Beginning</span><span class="rule"></span><span class="k jp">山門</span>
   </div>
   <div class="gate-grid">
-    <h2 class="display h-sec" data-rv="up">Curious by nature, building by habit.</h2>
-    <div class="gate-copy">
-      <p class="lead" data-rv="up">I'm Subhadeep Bhandari, a B.Tech student at Jain (Deemed-to-be) University,
-        passionate about Artificial Intelligence, data analytics and practical technology that solves
-        real problems. Most of my ideas start as experiments and end as working projects.</p>
-      <p class="body" data-rv="up">My goal is to become a versatile technologist who combines
-        analytical thinking, AI and human-centred design to build things that actually
-        matter. I'm early on that road, still learning, experimenting and building
-        as I go.</p>
-      <a class="arrowlink" href="#pathways" data-rv="fade" data-cursor>
-        <span>See what I've built</span>
-        <span class="ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-      </a>
+    <div class="gate-portrait" data-rv="up">
+      <div class="gate-portrait-card">
+        <img src="secret-pathways-assets/foreground/png/subhadeep_scroll.png" alt="Subhadeep Bhandari" class="gate-portrait-img" loading="lazy" />
+        <div class="gate-portrait-badge">
+          <span class="badge-dot"></span> Subhadeep Bhandari · 2026
+        </div>
+      </div>
+    </div>
+    <div class="gate-text-col">
+      <h2 class="display h-sec" data-rv="up">Curious by nature, building by habit.</h2>
+      <div class="gate-copy">
+        <p class="lead" data-rv="up">I'm Subhadeep Bhandari, a B.Tech student at Jain (Deemed-to-be) University,
+          passionate about Artificial Intelligence, data analytics and practical technology that solves
+          real problems. Most of my ideas start as experiments and end as working projects.</p>
+        <p class="body" data-rv="up">My goal is to become a versatile technologist who combines
+          analytical thinking, AI and human-centred design to build things that actually
+          matter. I'm early on that road, still learning, experimenting and building
+          as I go.</p>
+        <a class="arrowlink" href="#pathways" data-rv="fade" data-cursor>
+          <span>See what I've built</span>
+          <span class="ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        </a>
+      </div>
     </div>
   </div>
   <div class="gate-stats" data-rv="up">
@@ -3394,6 +3483,68 @@ function buildSubhadeepAvatar() {
   WORLD.subhadeepMesh = mesh;
   WORLD.subhadeepShadow = shadowMesh;
   WORLD.subhadeepBaseY = BASE_Y;
+
+  // --- SECOND 3D AVATAR: REVEALED WHILE SCROLLING ---
+  const scrollGroup = new THREE.Group();
+  const scrollTex = loader.load('secret-pathways-assets/foreground/png/subhadeep_scroll.png', function(t) {
+    t.generateMipmaps = true;
+    t.minFilter = THREE.LinearMipmapLinearFilter;
+    t.magFilter = THREE.LinearFilter;
+    if (t.encoding !== undefined && THREE.sRGBEncoding !== undefined) {
+      t.encoding = THREE.sRGBEncoding;
+    }
+    t.needsUpdate = true;
+  });
+
+  // Scale for scroll pathway: Height = 3.8m, aspect ratio 581 / 945
+  const H2 = 3.8;
+  const W2 = H2 * (581.0 / 945.0); // ~2.336m
+
+  const geo2 = new THREE.PlaneGeometry(W2, H2, 16, 32);
+  geo2.translate(0, H2 / 2, 0);
+
+  const mat2 = new THREE.MeshStandardMaterial({
+    map: scrollTex,
+    transparent: true,
+    alphaTest: 0.02,
+    roughness: 0.35,
+    metalness: 0.04,
+    emissive: new THREE.Color(0xffffff),
+    emissiveMap: scrollTex,
+    emissiveIntensity: 0.55,
+    opacity: 0.0,
+    side: THREE.DoubleSide
+  });
+
+  const mesh2 = new THREE.Mesh(geo2, mat2);
+  mesh2.castShadow = true;
+  scrollGroup.add(mesh2);
+
+  // Dedicated Warm Key Light on the scroll avatar
+  const scrollKeyLight = new THREE.PointLight(0xffecd0, 3.8, 18, 1.1);
+  scrollKeyLight.position.set(0.6, 3.2, 2.8);
+  scrollGroup.add(scrollKeyLight);
+
+  const scrollShadowGeo = new THREE.PlaneGeometry(1.8, 0.95);
+  scrollShadowGeo.rotateX(-Math.PI / 2);
+  const scrollShadowMat = new THREE.MeshBasicMaterial({
+    map: shadowTex,
+    transparent: true,
+    depthWrite: false,
+    opacity: 0.0
+  });
+  const scrollShadowMesh = new THREE.Mesh(scrollShadowGeo, scrollShadowMat);
+  scrollShadowMesh.position.set(0, 0.015, 0.02);
+  scrollGroup.add(scrollShadowMesh);
+
+  // Position along the path at the Sanmon approach (visible during Chapter 01 scroll)
+  scrollGroup.position.set(0.8, 0.0, -8.4);
+  scrollGroup.visible = false;
+  scene.add(scrollGroup);
+
+  WORLD.subhadeepScroll = scrollGroup;
+  WORLD.subhadeepScrollMesh = mesh2;
+  WORLD.subhadeepScrollShadow = scrollShadowMesh;
 }
 
 
@@ -5188,32 +5339,36 @@ function resize() {
 function updateWorld(dt) {
   WORLD.uT.value = clock;
 
-  /* Interactive Subhadeep 3D Avatar Cursor Motion & Ambient Breathing */
+  /* Subhadeep Starting 3D Avatar (Static, not moving) */
   if (WORLD.subhadeep) {
-    const breath = Math.sin(clock * 1.8) * 0.020;
-    const sway = Math.sin(clock * 0.9) * 0.012;
+    // Keep starting image completely static, not moving!
+    WORLD.subhadeep.rotation.set(0, 0, 0);
+    WORLD.subhadeep.position.set(0, WORLD.subhadeepBaseY || 0.0, -1.2);
+    WORLD.subhadeep.scale.set(1, 1, 1);
 
-    // Body rotates and shifts smoothly toward mouse cursor
-    const targetRotY = (RIG.mx || 0) * 0.48;
-    const targetRotX = -(RIG.my || 0) * 0.14;
-    const targetPosX = (RIG.mx || 0) * 0.58;
-
-    WORLD.subhadeep.rotation.y = damp(WORLD.subhadeep.rotation.y, targetRotY, 7, dt);
-    WORLD.subhadeep.rotation.x = damp(WORLD.subhadeep.rotation.x, targetRotX, 7, dt);
-    WORLD.subhadeep.rotation.z = damp(WORLD.subhadeep.rotation.z, sway, 5, dt);
-    WORLD.subhadeep.position.x = damp(WORLD.subhadeep.position.x, targetPosX, 7, dt);
-    WORLD.subhadeep.position.y = (WORLD.subhadeepBaseY || 0.0) + breath;
-    WORLD.subhadeep.scale.y = 1 + breath * 0.25;
-
-    // Graceful camera passage on scroll: smoothly fade out when camera approaches close
+    // Smoothly fade out as user scrolls away from hero (Chapter 00 -> Chapter 01)
     if (WORLD.subhadeepMesh && WORLD.subhadeepMesh.material) {
-      const dist = camera.position.z - WORLD.subhadeep.position.z;
-      const alpha = clamp((dist - 2.5) / 4.0, 0, 1);
+      const alpha = clamp(1 - (RIG.smooth / 0.75), 0, 1);
       WORLD.subhadeepMesh.material.opacity = alpha;
       if (WORLD.subhadeepShadow && WORLD.subhadeepShadow.material) {
         WORLD.subhadeepShadow.material.opacity = alpha * 0.85;
       }
+      WORLD.subhadeep.visible = alpha > 0.01;
     }
+  }
+
+  /* Subhadeep New Scroll-Revealed 3D Avatar (Appears while scrolling in Chapter 01) */
+  if (WORLD.subhadeepScroll && WORLD.subhadeepScrollMesh) {
+    const p = RIG.smooth;
+    let scrollAlpha = 0;
+    if (p > 0.18 && p < 1.75) {
+      scrollAlpha = Math.sin(clamp((p - 0.18) / 1.57, 0, 1) * Math.PI);
+    }
+    WORLD.subhadeepScrollMesh.material.opacity = scrollAlpha;
+    if (WORLD.subhadeepScrollShadow && WORLD.subhadeepScrollShadow.material) {
+      WORLD.subhadeepScrollShadow.material.opacity = scrollAlpha * 0.85;
+    }
+    WORLD.subhadeepScroll.visible = scrollAlpha > 0.01;
   }
 
   /* the focused chapter warms the lanterns and swells the disc */
