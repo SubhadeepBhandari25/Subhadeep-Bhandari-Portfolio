@@ -816,8 +816,8 @@ body[data-layout-hero="b"] .hero-side .v{
 /* — story B · spread: portrait on left, reading column on right */
 body[data-layout-story="b"] .gate-grid{
   display:grid;
-  grid-template-columns:minmax(260px, 340px) minmax(0, 1fr);
-  gap:clamp(24px, 4vw, 54px);
+  grid-template-columns:minmax(320px, 440px) minmax(0, 1fr);
+  gap:clamp(28px, 4.5vw, 60px);
   align-items:center;
 }
 body[data-layout-story="b"] .gate-portrait{ grid-column:1; }
@@ -827,8 +827,8 @@ body[data-layout-story="b"] .gate-stats{ display:grid; grid-template-columns:rep
 body[data-layout-story="b"] .gate-stats div{ min-height:108px; padding:18px; border-left:1px solid var(--line-soft); }
 body[data-layout-story="b"] .gate-stats div:last-child{ border-right:1px solid var(--line-soft); }
 @media (max-width: 900px){
-  body[data-layout-story="b"] .gate-grid{ grid-template-columns:1fr; gap:24px; }
-  body[data-layout-story="b"] .gate-portrait{ max-width:320px; margin:0 auto; }
+  body[data-layout-story="b"] .gate-grid{ grid-template-columns:1fr; gap:28px; }
+  body[data-layout-story="b"] .gate-portrait{ max-width:440px; margin:0 auto; }
   body[data-layout-story="b"] .gate-text-col{ grid-column:1; }
 }
 
@@ -1247,13 +1247,13 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 }
 .gate-portrait-card {
   position: relative;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  border: 1px solid rgba(224, 35, 28, 0.35);
+  border: 1px solid rgba(224, 35, 28, 0.45);
   background: #090d12;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 32px rgba(224, 35, 28, 0.15);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.75), 0 0 36px rgba(224, 35, 28, 0.2);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, border-color 0.4s ease;
-  aspect-ratio: 633 / 674;
+  aspect-ratio: 4 / 5;
 }
 .gate-portrait-card picture {
   display: block;
@@ -3198,11 +3198,11 @@ const HI = qs('q', COARSE ? 'low' : 'high');
 const LOW = HI === 'low';
 const WANT_POST    = qs('post', '1') !== '0';
 const WANT_SHADOW  = qs('shadow', LOW ? '0' : '1') !== '0';
-const DPR_CAP      = qn('dpr', LOW ? 1.4 : 1.8);
+const DPR_CAP      = qn('dpr', LOW ? 1.6 : 2.0);
 /* the renderer trades resolution for frame rate on its own — the scene is
    fill-bound (five big alpha-blended veils plus a bloom chain), so pixels
    are the only knob worth turning on unknown hardware */
-const PERF = { scale: 1, acc: 0, n: 0, locked: qs('adapt', '1') === '0' };
+const PERF = { scale: 1, acc: 0, n: 0, locked: true };
 
 function initGL() {
   if (qs('nogl', '0') !== '0' || !window.THREE) throw new Error('webgl disabled');
@@ -3749,17 +3749,18 @@ function texAvatarShadow() {
 
 function buildGateAvatar() {
   const g = new THREE.Group();
-  /* Aspect ratio of 616x1940 HD cutout = 0.3175 */
-  const H = 5.45, W = H * (616 / 1940);
+  /* Aspect ratio of 1232x3880 Ultra HD cutout = 0.31752577 */
+  /* Make avatar bigger and commanding: H = 7.15, W = 2.27 */
+  const H = 7.15, W = H * (1232 / 3880);
 
-  /* Texture loading with sRGB and anisotropic filtering */
+  /* Texture loading with sRGB, pure filtering without mipmap blur */
   const loader = new THREE.TextureLoader();
   const avatarTex = loader.load(
     './secret-pathways-assets/foreground/png/subhadeep_gate_avatar.webp',
     tex => {
       tex.encoding = THREE.sRGBEncoding;
-      tex.generateMipmaps = true;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.generateMipmaps = false;
+      tex.minFilter = THREE.LinearFilter;
       tex.magFilter = THREE.LinearFilter;
       tex.anisotropy = Math.min(16, maxAniso);
       tex.needsUpdate = true;
@@ -3768,8 +3769,8 @@ function buildGateAvatar() {
     () => {
       loader.load('./secret-pathways-assets/foreground/png/subhadeep_gate_avatar.png', tex2 => {
         tex2.encoding = THREE.sRGBEncoding;
-        tex2.generateMipmaps = true;
-        tex2.minFilter = THREE.LinearMipmapLinearFilter;
+        tex2.generateMipmaps = false;
+        tex2.minFilter = THREE.LinearFilter;
         tex2.magFilter = THREE.LinearFilter;
         tex2.anisotropy = Math.min(16, maxAniso);
         if (WORLD.gateAvatarMat) {
@@ -3783,11 +3784,12 @@ function buildGateAvatar() {
   const mat = new THREE.MeshBasicMaterial({
     map: avatarTex,
     transparent: true,
-    alphaTest: 0.015,
+    alphaTest: 0.012,
     side: THREE.DoubleSide,
     depthWrite: true,
-    fog: true,
-    color: new THREE.Color(1.04, 1.02, 1.02)
+    fog: false,
+    toneMapped: false,
+    color: new THREE.Color(1.0, 1.0, 1.0)
   });
   WORLD.gateAvatarMat = mat;
 
@@ -3795,26 +3797,26 @@ function buildGateAvatar() {
   const geo = new THREE.PlaneGeometry(W, H);
   geo.translate(0, H / 2, 0);
   const avatarMesh = new THREE.Mesh(geo, mat);
-  avatarMesh.renderOrder = 18;
+  avatarMesh.renderOrder = 22;
   g.add(avatarMesh);
 
-  /* Contact ground shadow on stone path */
-  const shadowGeo = new THREE.PlaneGeometry(W * 1.55, 1.25);
+  /* Contact ground shadow on stone path, scaled for larger stance */
+  const shadowGeo = new THREE.PlaneGeometry(W * 1.55, 1.45);
   shadowGeo.rotateX(-Math.PI / 2);
   const shadowMat = new THREE.MeshBasicMaterial({
     map: tx(texAvatarShadow(), { srgb: false }),
     transparent: true,
     depthWrite: false,
-    opacity: 0.85
+    opacity: 0.88
   });
   WORLD.gateAvatarShadowMat = shadowMat;
   const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
-  shadowMesh.position.set(0, 0.012, -0.06);
+  shadowMesh.position.set(0, 0.012, -0.08);
   shadowMesh.renderOrder = 2;
   g.add(shadowMesh);
 
-  /* Standing proudly centered in front of the Torii gate */
-  g.position.set(0, 0, -5.4);
+  /* Standing proudly centered in front of the Torii gate, closer to camera for bold presence */
+  g.position.set(0, 0, -4.6);
   scene.add(g);
   WORLD.gateAvatar = g;
 }
