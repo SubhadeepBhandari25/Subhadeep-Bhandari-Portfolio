@@ -570,19 +570,28 @@ body[data-layout-story="b"] .gate-stats{ display:grid; grid-template-columns:rep
 body[data-layout-story="b"] .gate-stats div{ min-height:108px; padding:18px; border-left:1px solid var(--line-soft); }
 body[data-layout-story="b"] .gate-stats div:last-child{ border-right:1px solid var(--line-soft); }
 
-/* — gardens B · mosaic: one immersive live window beside two stacked ones.
-     The cards stretch to their rows and the frames flex, so the two small
-     viewports meet the tall one exactly instead of drifting apart. */
+/* — gardens B · balanced showcase: SatQuery AI and Ferry Forecast side-by-side with full widescreen previews */
 body[data-layout-gallery="b"] .cards{
-  grid-template-columns:minmax(0,1.55fr) minmax(260px,.75fr);
-  grid-template-rows:repeat(2,minmax(0,1fr));
-  gap:14px; align-items:stretch;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:clamp(18px, 2.4vw, 32px);
+  align-items:stretch;
 }
 body[data-layout-gallery="b"] .card{ transform:none; display:flex; flex-direction:column; min-height:0; }
 body[data-layout-gallery="b"] .card-fr{ aspect-ratio:auto; flex:1 1 auto; min-height:0; }
-body[data-layout-gallery="b"] .card:first-child{ grid-row:1 / 3; }
-body[data-layout-gallery="b"] .card:first-child .card-fr{ flex:0 0 auto; height:min(72vh,760px); }
-body[data-layout-gallery="b"] .card:not(:first-child) .card-fr{ min-height:200px; }
+body[data-layout-gallery="b"] .card:nth-child(1),
+body[data-layout-gallery="b"] .card:nth-child(2){ grid-column:span 1; }
+body[data-layout-gallery="b"] .card:nth-child(1) .card-fr,
+body[data-layout-gallery="b"] .card:nth-child(2) .card-fr{ flex:0 0 auto; height:clamp(340px, 46vh, 490px); }
+body[data-layout-gallery="b"] .card:nth-child(3){ grid-column:1 / -1; }
+body[data-layout-gallery="b"] .card:nth-child(3) .card-fr{ height:clamp(200px, 24vh, 260px); }
+@media (max-width: 900px){
+  body[data-layout-gallery="b"] .cards{ grid-template-columns:1fr; }
+  body[data-layout-gallery="b"] .card:nth-child(1),
+  body[data-layout-gallery="b"] .card:nth-child(2),
+  body[data-layout-gallery="b"] .card:nth-child(3){ grid-column:1 / -1; }
+  body[data-layout-gallery="b"] .card:nth-child(1) .card-fr,
+  body[data-layout-gallery="b"] .card:nth-child(2) .card-fr{ height:clamp(300px, 42vh, 420px); }
+}
 
 /* — chapters B · atlas: a two-then-three plate grid instead of a syllabus.
      Number and title sit at the top of each plate, the running time drops to
@@ -969,6 +978,320 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   border-color: rgba(224, 35, 28, 0.7);
 }
 
+/* ========================================================
+   PROJECT SCREENSHOT SHOWCASE & INTERACTIVE LIGHTBOX
+   ======================================================== */
+.project-showcase {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #06090d;
+}
+.proj-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.42s ease, transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.025);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #04070a;
+}
+.proj-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 1;
+}
+.proj-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  filter: contrast(1.05) brightness(0.97);
+}
+.card:hover .proj-img {
+  transform: scale(1.035);
+  filter: contrast(1.08) brightness(1.03);
+}
+.proj-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 12px;
+  background: rgba(4, 7, 10, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(224, 35, 28, 0.45);
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #dfe7e0;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  pointer-events: none;
+  z-index: 3;
+}
+.proj-tabs {
+  position: absolute;
+  bottom: 46px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 4;
+}
+.proj-tab-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(6, 10, 14, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(223, 231, 224, 0.18);
+  border-radius: 8px;
+  color: #a4b2a9;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+.proj-tab-btn:hover {
+  background: rgba(224, 35, 28, 0.25);
+  border-color: rgba(224, 35, 28, 0.6);
+  color: #ffffff;
+}
+.proj-tab-btn.active {
+  background: rgba(224, 35, 28, 0.88);
+  border-color: #e0231c;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(224, 35, 28, 0.5);
+}
+.proj-zoom-btn {
+  position: absolute;
+  top: 14px;
+  right: 48px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(5, 8, 12, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(223, 231, 224, 0.22);
+  color: #dfe7e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  transition: all 0.25s ease;
+}
+.proj-zoom-btn:hover {
+  background: rgba(224, 35, 28, 0.55);
+  border-color: #e0231c;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Lightbox Modal */
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 3vw, 40px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.project-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 5, 8, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.modal-content {
+  position: relative;
+  max-width: min(1200px, 94vw);
+  max-height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(224, 35, 28, 0.4);
+  border-radius: 12px;
+  background: #080d12;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(224, 35, 28, 0.2);
+  overflow: hidden;
+  z-index: 1;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(223, 231, 224, 0.12);
+  background: rgba(12, 17, 22, 0.95);
+  gap: 16px;
+}
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.modal-badge {
+  padding: 3px 9px;
+  background: rgba(224, 35, 28, 0.22);
+  border: 1px solid rgba(224, 35, 28, 0.6);
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff6860;
+}
+.modal-title b {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #dfe7e0;
+}
+.modal-sub {
+  font-size: 12px;
+  color: #8fa094;
+}
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal-gh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(223, 231, 224, 0.2);
+  color: #dfe7e0;
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.modal-gh-btn:hover {
+  background: rgba(224, 35, 28, 0.3);
+  border-color: rgba(224, 35, 28, 0.7);
+  color: #fff;
+}
+.modal-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(223, 231, 224, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  color: #dfe7e0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.modal-close-btn:hover {
+  background: rgba(224, 35, 28, 0.6);
+  border-color: #e0231c;
+  color: #fff;
+}
+.modal-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  background: #05080c;
+}
+.modal-img-wrap {
+  max-width: 100%;
+  max-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-img-wrap img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(223, 231, 224, 0.1);
+}
+.modal-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(223, 231, 224, 0.25);
+  background: rgba(10, 15, 20, 0.82);
+  backdrop-filter: blur(10px);
+  color: #dfe7e0;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.25s ease;
+}
+.modal-nav-btn.prev { left: 24px; }
+.modal-nav-btn.next { right: 24px; }
+.modal-nav-btn:hover {
+  background: rgba(224, 35, 28, 0.65);
+  border-color: #e0231c;
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid rgba(223, 231, 224, 0.12);
+  background: rgba(12, 17, 22, 0.95);
+  font-size: 12px;
+  color: #8fa094;
+  gap: 16px;
+}
+.modal-caption {
+  flex: 1;
+  line-height: 1.5;
+}
+.modal-counter {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+  color: #b8c8be;
+}
 </style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
@@ -978,6 +1301,38 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 <div id="vignette"></div>
 <div id="grain"></div>
 <div class="cur-dot" id="cursor"></div>
+
+<!-- Interactive Project Lightbox Modal -->
+<div class="project-modal" id="projectModal" aria-hidden="true">
+  <div class="modal-backdrop" onclick="closeLightbox()"></div>
+  <div class="modal-content" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span class="modal-badge" id="modalBadge">Real-time Telemetry</span>
+        <b id="modalHeading">Ferry Forecast</b>
+        <span class="modal-sub" id="modalSub">Live 48h Continuous Demand Velocity</span>
+      </div>
+      <div class="modal-actions">
+        <a id="modalGithubLink" class="modal-gh-btn" href="https://github.com/SubhadeepBhandari25" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <button type="button" class="modal-close-btn" onclick="closeLightbox()" aria-label="Close Preview">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <button type="button" class="modal-nav-btn prev" onclick="navigateModal(-1)" aria-label="Previous Image">‹</button>
+      <div class="modal-img-wrap">
+        <img id="modalImg" src="secret-pathways-assets/projects/ferry-forecast-1.png" alt="Project Screenshot" />
+      </div>
+      <button type="button" class="modal-nav-btn next" onclick="navigateModal(1)" aria-label="Next Image">›</button>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-caption" id="modalCaption">Short-term predictive decision support system monitoring 15-minute ticket sales & redemption velocity.</div>
+      <div class="modal-counter"><span id="modalCurrent">1</span> / <span id="modalTotal">2</span></div>
+    </div>
+  </div>
+</div>
 
 <!-- ============================================================ preloader -->
 <div id="pre">
@@ -1124,22 +1479,71 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <span class="k"><b>02</b> — The Creations</span><span class="rule"></span><span class="k jp">庭園</span>
   </div>
   <div class="cards" id="cards">
-    <article class="card" data-rv="up" data-view="0" data-cursor>
-      <div class="card-fr" data-frame>
-        <a class="card-ar" href="https://github.com/SubhadeepBhandari25" target="_blank" rel="noopener noreferrer" aria-label="Open SatQuery AI on GitHub" data-cursor><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></a>
-        <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
-        <div class="card-lab"><b>SatQuery AI</b><span class="jp">参道</span></div>
-      </div>
-      <div class="card-meta"><span>Remote-sensing vision-language assistant</span><span>01 / 03</span></div>
-    </article>
-    <article class="card" data-rv="up" data-view="1" data-cursor>
-      <div class="card-fr" data-frame>
+    <!-- PROJECT 1: Ferry Forecast (Toronto Island Ferry Demand Forecasting & Benchmarks) -->
+    <article class="card project-card" data-rv="up" data-cursor data-project="ferry">
+      <div class="card-fr">
+        <div class="project-showcase" id="proj-showcase-ferry">
+          <div class="proj-slide active" data-idx="0">
+            <img src="secret-pathways-assets/projects/ferry-forecast-1.png" alt="Toronto Island Ferry Demand Forecasting - Live 48h Continuous Demand Velocity" class="proj-img" loading="lazy" />
+            <div class="proj-tag">Real-Time Demand Velocity</div>
+          </div>
+          <div class="proj-slide" data-idx="1">
+            <img src="secret-pathways-assets/projects/ferry-forecast-2.png" alt="Empirical Comparison of Sales Forecasting - MAE Multi-Model Benchmark Table" class="proj-img" loading="lazy" />
+            <div class="proj-tag">MAE Multi-Model Benchmark</div>
+          </div>
+          <!-- Tab Switcher -->
+          <div class="proj-tabs" onclick="event.stopPropagation()">
+            <button type="button" class="proj-tab-btn active" data-showcase="ferry" data-target="0">
+              <span>📊</span> Velocity
+            </button>
+            <button type="button" class="proj-tab-btn" data-showcase="ferry" data-target="1">
+              <span>📈</span> Benchmarks
+            </button>
+          </div>
+          <!-- Zoom button -->
+          <button type="button" class="proj-zoom-btn" title="Inspect Fullscreen" aria-label="Inspect Fullscreen" onclick="event.stopPropagation(); openLightbox('ferry')">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
         <a class="card-ar" href="https://github.com/SubhadeepBhandari25" target="_blank" rel="noopener noreferrer" aria-label="Open Ferry Forecast on GitHub" data-cursor><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></a>
-        <i class="glow glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
         <div class="card-lab"><b>Ferry Forecast</b><span class="jp">灯籠</span></div>
       </div>
-      <div class="card-meta"><span>Predictive decision support</span><span>02 / 03</span></div>
+      <div class="card-meta"><span>Predictive Decision Support (15-Min Velocity)</span><span>01 / 03</span></div>
     </article>
+
+    <!-- PROJECT 2: SatQuery AI (Multimodal Remote Sensing & Environmental Intelligence) -->
+    <article class="card project-card" data-rv="up" data-cursor data-project="satquery">
+      <div class="card-fr">
+        <div class="project-showcase" id="proj-showcase-satquery">
+          <div class="proj-slide active" data-idx="0">
+            <img src="secret-pathways-assets/projects/satquery-1.png" alt="SatQuery AI - Multimodal Remote Sensing Input Console" class="proj-img" loading="lazy" />
+            <div class="proj-tag">SIH 2026 · Input Console</div>
+          </div>
+          <div class="proj-slide" data-idx="1">
+            <img src="secret-pathways-assets/projects/satquery-2.png" alt="SatQuery AI - Executive Remote Sensing Briefing & Land Cover Intelligence" class="proj-img" loading="lazy" />
+            <div class="proj-tag">Executive Scene Intelligence</div>
+          </div>
+          <!-- Tab Switcher -->
+          <div class="proj-tabs" onclick="event.stopPropagation()">
+            <button type="button" class="proj-tab-btn active" data-showcase="satquery" data-target="0">
+              <span>🛰️</span> Console
+            </button>
+            <button type="button" class="proj-tab-btn" data-showcase="satquery" data-target="1">
+              <span>📋</span> Briefing
+            </button>
+          </div>
+          <!-- Zoom button -->
+          <button type="button" class="proj-zoom-btn" title="Inspect Fullscreen" aria-label="Inspect Fullscreen" onclick="event.stopPropagation(); openLightbox('satquery')">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <a class="card-ar" href="https://github.com/SubhadeepBhandari25" target="_blank" rel="noopener noreferrer" aria-label="Open SatQuery AI on GitHub" data-cursor><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></a>
+        <div class="card-lab"><b>SatQuery AI</b><span class="jp">参道</span></div>
+      </div>
+      <div class="card-meta"><span>Multimodal Vision-Language Remote Sensing (SIH 2026)</span><span>02 / 03</span></div>
+    </article>
+
+    <!-- PROJECT 3: Soil Analyzer (Embedded Systems Sensing Hardware) -->
     <article class="card" data-rv="up" data-view="2" data-cursor>
       <div class="card-fr" data-frame>
         <a class="card-ar" href="https://github.com/SubhadeepBhandari25" target="_blank" rel="noopener noreferrer" aria-label="Open Soil Analyzer on GitHub" data-cursor><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></a>
@@ -2916,22 +3320,25 @@ function buildSubhadeepAvatar() {
     t.needsUpdate = true;
   });
 
-  // Human scale standing in front of the Sanmon Torii Gate:
-  // Height = 2.18m in world space, aspect ratio 344 / 1143
-  const H = 2.18;
-  const W = H * (344.0 / 1143.0); // ~0.656m
+  // Enlarged heroic scale: Height = 4.4m in 3D world space (344 x 1143 aspect ratio)
+  // Positioned proudly on the front courtyard path in front of the Torii gate
+  const H = 4.4;
+  const W = H * (344.0 / 1143.0); // ~1.323m
 
   // Subdivided plane for smooth shading
-  const geo = new THREE.PlaneGeometry(W, H, 8, 16);
+  const geo = new THREE.PlaneGeometry(W, H, 16, 32);
   // Shift pivot to bottom center (feet at y = 0)
   geo.translate(0, H / 2, 0);
 
   const mat = new THREE.MeshStandardMaterial({
     map: avatarTex,
     transparent: true,
-    alphaTest: 0.08,
-    roughness: 0.70,
-    metalness: 0.12,
+    alphaTest: 0.04,
+    roughness: 0.35,
+    metalness: 0.04,
+    emissive: new THREE.Color(0xffffff),
+    emissiveMap: avatarTex,
+    emissiveIntensity: 0.58,
     side: THREE.DoubleSide
   });
 
@@ -2940,18 +3347,33 @@ function buildSubhadeepAvatar() {
   mesh.receiveShadow = false;
   avatarGroup.add(mesh);
 
+  // Dedicated Warm Key Light illuminating Subhadeep's face and jacket
+  const avatarKeyLight = new THREE.PointLight(0xfff3e2, 4.2, 22, 1.0);
+  avatarKeyLight.position.set(0.8, 3.5, 3.2);
+  avatarGroup.add(avatarKeyLight);
+
+  // Dedicated Cool Moonlight Rim Light from behind/above
+  const avatarRimLight = new THREE.DirectionalLight(0x9bd4ff, 1.8);
+  avatarRimLight.position.set(-3.2, 5.2, -2.2);
+  avatarGroup.add(avatarRimLight);
+
+  // Soft Red Ground Reflection bounce from stone court floor
+  const avatarGroundBounce = new THREE.PointLight(0xe0231c, 2.0, 7, 1.8);
+  avatarGroundBounce.position.set(0, 0.35, 1.0);
+  avatarGroup.add(avatarGroundBounce);
+
   // Soft contact drop shadow beneath feet
   const shadowCanvas = cvs(128, 64);
   const sx = shadowCanvas.getContext('2d');
   const sGrad = sx.createRadialGradient(64, 32, 4, 64, 32, 60);
-  sGrad.addColorStop(0, 'rgba(0, 0, 0, 0.75)');
-  sGrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.35)');
+  sGrad.addColorStop(0, 'rgba(0, 0, 0, 0.85)');
+  sGrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.45)');
   sGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
   sx.fillStyle = sGrad;
   sx.fillRect(0, 0, 128, 64);
 
   const shadowTex = tx(shadowCanvas);
-  const shadowGeo = new THREE.PlaneGeometry(0.75, 0.42);
+  const shadowGeo = new THREE.PlaneGeometry(1.8, 0.95);
   shadowGeo.rotateX(-Math.PI / 2);
   const shadowMat = new THREE.MeshBasicMaterial({
     map: shadowTex,
@@ -2963,14 +3385,15 @@ function buildSubhadeepAvatar() {
   shadowMesh.position.set(0, 0.015, 0.02);
   avatarGroup.add(shadowMesh);
 
-  // Place Subhadeep proudly standing at the entrance threshold in front of the Torii gate
-  // Torii gate is at z = -8.6, y = -0.56. We place Subhadeep at z = -7.2.
-  const BASE_Y = -0.56;
-  avatarGroup.position.set(0.0, BASE_Y, -7.2);
+  // Place Subhadeep prominently on the stone pathway in front of the Torii gate:
+  // Torii gate is at z = -8.6. We place Subhadeep at z = -1.2, y = 0.0.
+  const BASE_Y = 0.0;
+  avatarGroup.position.set(0.0, BASE_Y, -1.2);
 
   scene.add(avatarGroup);
   WORLD.subhadeep = avatarGroup;
   WORLD.subhadeepMesh = mesh;
+  WORLD.subhadeepShadow = shadowMesh;
   WORLD.subhadeepBaseY = BASE_Y;
 }
 
@@ -4768,20 +5191,30 @@ function updateWorld(dt) {
 
   /* Interactive Subhadeep 3D Avatar Cursor Motion & Ambient Breathing */
   if (WORLD.subhadeep) {
-    const breath = Math.sin(clock * 1.8) * 0.012;
-    const sway = Math.sin(clock * 0.9) * 0.007;
+    const breath = Math.sin(clock * 1.8) * 0.020;
+    const sway = Math.sin(clock * 0.9) * 0.012;
 
     // Body rotates and shifts smoothly toward mouse cursor
-    const targetRotY = (RIG.mx || 0) * 0.36;
-    const targetRotX = -(RIG.my || 0) * 0.10;
-    const targetPosX = (RIG.mx || 0) * 0.32;
+    const targetRotY = (RIG.mx || 0) * 0.48;
+    const targetRotX = -(RIG.my || 0) * 0.14;
+    const targetPosX = (RIG.mx || 0) * 0.58;
 
     WORLD.subhadeep.rotation.y = damp(WORLD.subhadeep.rotation.y, targetRotY, 7, dt);
     WORLD.subhadeep.rotation.x = damp(WORLD.subhadeep.rotation.x, targetRotX, 7, dt);
     WORLD.subhadeep.rotation.z = damp(WORLD.subhadeep.rotation.z, sway, 5, dt);
     WORLD.subhadeep.position.x = damp(WORLD.subhadeep.position.x, targetPosX, 7, dt);
-    WORLD.subhadeep.position.y = (WORLD.subhadeepBaseY || -0.56) + breath;
-    WORLD.subhadeep.scale.y = 1 + breath * 0.4;
+    WORLD.subhadeep.position.y = (WORLD.subhadeepBaseY || 0.0) + breath;
+    WORLD.subhadeep.scale.y = 1 + breath * 0.25;
+
+    // Graceful camera passage on scroll: smoothly fade out when camera approaches close
+    if (WORLD.subhadeepMesh && WORLD.subhadeepMesh.material) {
+      const dist = camera.position.z - WORLD.subhadeep.position.z;
+      const alpha = clamp((dist - 2.5) / 4.0, 0, 1);
+      WORLD.subhadeepMesh.material.opacity = alpha;
+      if (WORLD.subhadeepShadow && WORLD.subhadeepShadow.material) {
+        WORLD.subhadeepShadow.material.opacity = alpha * 0.85;
+      }
+    }
   }
 
   /* the focused chapter warms the lanterns and swells the disc */
@@ -4934,9 +5367,151 @@ const JOBS = [
   }]
 ];
 
+/* ========================================================
+   PROJECT SHOWCASE & LIGHTBOX INTERACTION LOGIC
+   ======================================================== */
+const PROJECT_DATA = {
+  ferry: {
+    title: "Toronto Island Ferry Demand Forecasting",
+    github: "https://github.com/SubhadeepBhandari25",
+    items: [
+      {
+        src: "secret-pathways-assets/projects/ferry-forecast-1.png",
+        sub: "Live 48h Continuous Demand Velocity",
+        caption: "Short-term predictive decision support system monitoring 15-minute ticket sales & redemption velocity for proactive vessel dispatch and crowd mitigation.",
+        badge: "Real-time Telemetry"
+      },
+      {
+        src: "secret-pathways-assets/projects/ferry-forecast-2.png",
+        sub: "MAE Model Comparison & Multi-Horizon Benchmarking",
+        caption: "Empirical evaluation across Naive, Moving Average, Linear Regression, Random Forest, Gradient Boosting, and XGBoost across 15m, 30m, 1h, and 2h horizons with full evaluation metric table.",
+        badge: "Model Evaluation"
+      }
+    ]
+  },
+  satquery: {
+    title: "SatQuery AI",
+    github: "https://github.com/SubhadeepBhandari25",
+    items: [
+      {
+        src: "secret-pathways-assets/projects/satquery-1.png",
+        sub: "Multimodal Remote Sensing & Environmental Intelligence Console",
+        caption: "Smart India Hackathon 2026 (SIH26167) engine supporting multi-band GeoTIFFs, optical + SAR cross-modal fusion, and bi-temporal urban change detection.",
+        badge: "SIH 2026 Engine"
+      },
+      {
+        src: "secret-pathways-assets/projects/satquery-2.png",
+        sub: "Executive Remote Sensing Briefing & Scene Intelligence",
+        caption: "87.9% model confidence grounding, 45 distinct water bodies identified, surface temperature, NDVI vegetation canopy, and multi-class land cover breakdown.",
+        badge: "Grounding & Segmentation"
+      }
+    ]
+  }
+};
+
+let currentModalProj = 'ferry';
+let currentModalIdx = 0;
+
+function switchShowcaseTab(projKey, targetIdx) {
+  const container = document.getElementById('proj-showcase-' + projKey);
+  if (!container) return;
+  const slides = container.querySelectorAll('.proj-slide');
+  const tabs = container.querySelectorAll('.proj-tab-btn');
+  slides.forEach((s, i) => s.classList.toggle('active', i === targetIdx));
+  tabs.forEach((t, i) => t.classList.toggle('active', i === targetIdx));
+}
+
+function openLightbox(projKey, idx) {
+  currentModalProj = projKey || 'ferry';
+  currentModalIdx = idx !== undefined ? idx : 0;
+  const data = PROJECT_DATA[currentModalProj];
+  if (!data) return;
+  updateModalView();
+  const modal = document.getElementById('projectModal');
+  if (modal) {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function closeLightbox() {
+  const modal = document.getElementById('projectModal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function navigateModal(dir) {
+  const data = PROJECT_DATA[currentModalProj];
+  if (!data) return;
+  currentModalIdx = (currentModalIdx + dir + data.items.length) % data.items.length;
+  updateModalView();
+}
+
+function updateModalView() {
+  const data = PROJECT_DATA[currentModalProj];
+  if (!data) return;
+  const item = data.items[currentModalIdx];
+  const heading = document.getElementById('modalHeading');
+  const sub = document.getElementById('modalSub');
+  const badge = document.getElementById('modalBadge');
+  const caption = document.getElementById('modalCaption');
+  const img = document.getElementById('modalImg');
+  const cur = document.getElementById('modalCurrent');
+  const tot = document.getElementById('modalTotal');
+  const gh = document.getElementById('modalGithubLink');
+
+  if (heading) heading.textContent = data.title;
+  if (sub) sub.textContent = item.sub;
+  if (badge) badge.textContent = item.badge;
+  if (caption) caption.textContent = item.caption;
+  if (img) {
+    img.src = item.src;
+    img.alt = item.sub;
+  }
+  if (cur) cur.textContent = (currentModalIdx + 1);
+  if (tot) tot.textContent = data.items.length;
+  if (gh) gh.href = data.github;
+
+  switchShowcaseTab(currentModalProj, currentModalIdx);
+}
+
+window.openLightbox = openLightbox;
+window.closeLightbox = closeLightbox;
+window.navigateModal = navigateModal;
+window.switchShowcaseTab = switchShowcaseTab;
+
+function wireProjectShowcases() {
+  document.querySelectorAll('.proj-tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const proj = btn.getAttribute('data-showcase');
+      const target = parseInt(btn.getAttribute('data-target'), 10);
+      switchShowcaseTab(proj, target);
+    });
+  });
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.card-ar') || e.target.closest('.proj-tabs') || e.target.closest('.proj-zoom-btn')) return;
+      const proj = card.getAttribute('data-project');
+      if (proj) openLightbox(proj, 0);
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('projectModal');
+    if (!modal || !modal.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigateModal(-1);
+    if (e.key === 'ArrowRight') navigateModal(1);
+  });
+}
+
 function boot() {
   makeGrain();
-  wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCursor();
+  wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCursor(); wireProjectShowcases();
   document.body.classList.add('is-locked');
   let i = 0;
   const step = () => {
