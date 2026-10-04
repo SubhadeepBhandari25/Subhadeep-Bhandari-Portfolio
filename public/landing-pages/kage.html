@@ -433,11 +433,15 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 
 /* — cinematic kage social media cards */
 .social-cards-wrap {
+  position: relative;
+  z-index: 10;
   width: 100%;
   max-width: 1080px;
-  margin: 56px auto 0;
+  margin: 52px auto 0;
   padding: 0 16px;
   box-sizing: border-box;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .social-cards-head {
@@ -449,16 +453,22 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 }
 .social-rule {
   flex: 1;
-  max-width: 110px;
+  max-width: 130px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(223, 231, 224, 0.20), transparent);
+  background: linear-gradient(90deg, transparent, rgba(223, 231, 224, 0.25), transparent);
 }
 .social-tag {
   font-size: 11px;
   letter-spacing: .24em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--bone);
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.social-tag .jp {
+  color: var(--vermilion);
 }
 
 .social-cards-grid {
@@ -865,20 +875,18 @@ body[data-layout-curriculum="b"] .les h3{ font-size:clamp(20px,2vw,30px); }
 body[data-layout-curriculum="b"] .les p{ display:block; max-width:34ch; }
 body[data-layout-curriculum="b"] .les .t{ text-align:left; margin-top:auto; }
 
-/* — closing B · gallery: the title hangs vertically on the right while the
-     chapter mark, the last line and the call to action run down the left. */
+/* — closing: majestic centered invitation with full-width direct channels */
 body[data-layout-closing="b"] .fin{
-  display:grid; grid-template-columns:minmax(260px,.7fr) minmax(0,1.3fr); grid-template-rows:auto auto auto;
-  align-content:center; align-items:end; text-align:left;
-  column-gap:clamp(40px,7vw,120px); row-gap:clamp(16px,2.6vh,30px);
+  display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  min-height:100svh; padding:clamp(90px,13vh,150px) var(--pad) clamp(80px,12vh,140px);
 }
-body[data-layout-closing="b"] .fin .eyebrow{ grid-column:1; grid-row:1; margin:0; }
+body[data-layout-closing="b"] .fin .eyebrow{ margin:0 0 20px; }
 body[data-layout-closing="b"] .fin h2{
-  grid-column:2; grid-row:1 / 4; align-self:center; justify-self:end;
-  font-size:clamp(52px,6vw,82px); writing-mode:vertical-rl;
+  font-size:clamp(38px,6.8vw,108px); line-height:.96; letter-spacing:-.03em;
+  text-transform:uppercase; max-width:16ch; margin:0 auto; writing-mode:horizontal-tb;
 }
-body[data-layout-closing="b"] .fin p{ grid-column:1; grid-row:2; margin:0; }
-body[data-layout-closing="b"] .fin .cta{ grid-column:1; grid-row:3; justify-self:start; margin-top:4px; }
+body[data-layout-closing="b"] .fin p{ max-width:48ch; margin:24px auto 0; font-size:15px; line-height:1.6; }
+body[data-layout-closing="b"] .fin .cta{ margin-top:36px; }
 
 /* — footer B · manifesto: the statement leads, the navigation becomes a
      compact ruled index beneath it. */
@@ -1971,11 +1979,11 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg>
   </a>
 
-  <!-- Premium Cinematic Kage Social Presence Cards -->
-  <div class="social-cards-wrap" data-rv="up">
+  <!-- Premium Cinematic Kage Social Presence Cards (Direct Channels) -->
+  <div class="social-cards-wrap">
     <div class="social-cards-head">
       <span class="social-rule"></span>
-      <span class="social-tag jp">結び · Direct Channels</span>
+      <span class="social-tag">DIRECT CHANNELS <span class="jp">結び</span></span>
       <span class="social-rule"></span>
     </div>
     <div class="social-cards-grid">
