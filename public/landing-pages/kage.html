@@ -1607,7 +1607,12 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   background: #090d12;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 32px rgba(224, 35, 28, 0.15);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, border-color 0.4s ease;
-  aspect-ratio: 581 / 945;
+  aspect-ratio: 633 / 674;
+}
+.gate-portrait-card picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .gate-portrait-card:hover {
   transform: translateY(-4px) scale(1.015);
@@ -1618,7 +1623,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: center 30%;
   display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
   filter: contrast(1.04) brightness(0.98);
@@ -2124,7 +2129,10 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   <div class="gate-grid">
     <div class="gate-portrait" data-rv="up">
       <div class="gate-portrait-card">
-        <img src="secret-pathways-assets/foreground/png/subhadeep_scroll.png" alt="Subhadeep Bhandari" class="gate-portrait-img" loading="lazy" />
+        <picture>
+          <source srcset="secret-pathways-assets/foreground/png/subhadeep_beginning.webp" type="image/webp">
+          <img src="secret-pathways-assets/foreground/png/subhadeep_beginning.jpg" alt="Subhadeep Bhandari" class="gate-portrait-img" loading="eager" decoding="async" />
+        </picture>
         <div class="gate-portrait-badge">
           <span class="badge-dot"></span> Subhadeep Bhandari · 2026
         </div>
@@ -4325,9 +4333,9 @@ function buildSubhadeepAvatar() {
     t.needsUpdate = true;
   });
 
-  // Scale for scroll pathway: Height = 3.8m, aspect ratio 581 / 945
+  // Scale for scroll pathway: Height = 3.8m, aspect ratio 633 / 674
   const H2 = 3.8;
-  const W2 = H2 * (581.0 / 945.0); // ~2.336m
+  const W2 = H2 * (633.0 / 674.0); // ~3.568m
 
   const geo2 = new THREE.PlaneGeometry(W2, H2, 16, 32);
   geo2.translate(0, H2 / 2, 0);
