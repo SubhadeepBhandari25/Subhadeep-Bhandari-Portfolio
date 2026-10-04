@@ -40,8 +40,8 @@ export type LandingPageProps = Omit<
   "sourceUrl" | "title" | "customization" | "backgroundCanvasSelector" | "backgroundVisualSelector"
 >;
 
-const URL_FRAME_SANDBOX = "allow-downloads allow-forms allow-modals allow-popups allow-same-origin allow-scripts";
-const SRCDOC_FRAME_SANDBOX = "allow-downloads allow-forms allow-modals allow-popups allow-scripts";
+const URL_FRAME_SANDBOX = "allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation";
+const SRCDOC_FRAME_SANDBOX = "allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-top-navigation";
 
 const BACKGROUND_PRESENTATION_STYLE_ID = "threeui-background-presentation";
 
@@ -147,7 +147,7 @@ export function LandingPageFrame({
         ref={frameRef}
         title={title}
         {...(srcDoc ? { srcDoc } : { src: sourceUrl })}
-        sandbox={srcDoc ? SRCDOC_FRAME_SANDBOX : URL_FRAME_SANDBOX}
+        sandbox={srcDoc ? SRCDOC_FRAME_SANDBOX : undefined}
         loading="eager"
         onLoad={(event) => {
           applyPageCustomization(event.currentTarget, customization);

@@ -1989,7 +1989,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <div class="social-cards-grid">
       
       <!-- 1. LINKEDIN -->
-      <a class="social-card social-card--linkedin" href="https://www.linkedin.com/in/subhadeep-bhandari-9a9098382/" target="_blank" rel="noopener noreferrer" data-cursor aria-label="Visit Subhadeep Bhandari's LinkedIn Profile">
+      <a class="social-card social-card--linkedin" href="https://www.linkedin.com/in/subhadeep-bhandari-9a9098382" target="_blank" rel="noopener noreferrer" data-cursor aria-label="Visit Subhadeep Bhandari's LinkedIn Profile">
         <div class="social-card-ambient"></div>
         <div class="social-card-top">
           <div class="social-icon-box">
@@ -2097,7 +2097,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
       <li><a tabindex="-1" aria-disabled="true" data-cursor>Smart India Hackathon 2026</a></li>
     </ul></div>
     <div><h4>Elsewhere</h4><ul>
-      <li><a href="https://www.linkedin.com/in/subhadeep-bhandari-9a9098382/" target="_blank" rel="noopener noreferrer" data-cursor>LinkedIn</a></li>
+      <li><a href="https://www.linkedin.com/in/subhadeep-bhandari-9a9098382" target="_blank" rel="noopener noreferrer" data-cursor>LinkedIn</a></li>
       <li><a href="https://github.com/SubhadeepBhandari25" target="_blank" rel="noopener noreferrer" data-cursor>GitHub</a></li>
       <li><a href="https://www.instagram.com/subhadeep__025/" target="_blank" rel="noopener noreferrer" data-cursor>Instagram</a></li>
     </ul></div>
@@ -5959,9 +5959,21 @@ function wireProjectShowcases() {
   });
 }
 
+function wireSocialLinks() {
+  document.querySelectorAll('.social-card, .foot a[target="_blank"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const url = link.getAttribute('href');
+      if (url && url.startsWith('http')) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+        e.preventDefault();
+      }
+    });
+  });
+}
+
 function boot() {
   makeGrain();
-  wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCursor(); wireProjectShowcases();
+  wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCursor(); wireProjectShowcases(); wireSocialLinks();
   document.body.classList.add('is-locked');
   let i = 0;
   const step = () => {
