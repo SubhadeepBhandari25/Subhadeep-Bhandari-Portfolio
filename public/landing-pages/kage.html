@@ -3418,37 +3418,18 @@ function buildSubhadeepAvatar() {
   // Shift pivot to bottom center (feet at y = 0)
   geo.translate(0, H / 2, 0);
 
-  const mat = new THREE.MeshStandardMaterial({
+  // Clean, reflection-free material: no specular glare, no light bounce, no fog washout
+  const mat = new THREE.MeshBasicMaterial({
     map: avatarTex,
     transparent: true,
     alphaTest: 0.04,
-    roughness: 0.35,
-    metalness: 0.04,
-    emissive: new THREE.Color(0xffffff),
-    emissiveMap: avatarTex,
-    emissiveIntensity: 0.58,
+    fog: false,
+    toneMapped: true,
     side: THREE.DoubleSide
   });
 
   const mesh = new THREE.Mesh(geo, mat);
-  mesh.castShadow = true;
-  mesh.receiveShadow = false;
   avatarGroup.add(mesh);
-
-  // Dedicated Warm Key Light illuminating Subhadeep's face and jacket
-  const avatarKeyLight = new THREE.PointLight(0xfff3e2, 4.2, 22, 1.0);
-  avatarKeyLight.position.set(0.8, 3.5, 3.2);
-  avatarGroup.add(avatarKeyLight);
-
-  // Dedicated Cool Moonlight Rim Light from behind/above
-  const avatarRimLight = new THREE.DirectionalLight(0x9bd4ff, 1.8);
-  avatarRimLight.position.set(-3.2, 5.2, -2.2);
-  avatarGroup.add(avatarRimLight);
-
-  // Soft Red Ground Reflection bounce from stone court floor
-  const avatarGroundBounce = new THREE.PointLight(0xe0231c, 2.0, 7, 1.8);
-  avatarGroundBounce.position.set(0, 0.35, 1.0);
-  avatarGroup.add(avatarGroundBounce);
 
   // Soft contact drop shadow beneath feet
   const shadowCanvas = cvs(128, 64);
@@ -3503,27 +3484,19 @@ function buildSubhadeepAvatar() {
   const geo2 = new THREE.PlaneGeometry(W2, H2, 16, 32);
   geo2.translate(0, H2 / 2, 0);
 
-  const mat2 = new THREE.MeshStandardMaterial({
+  // Clean, reflection-free scroll avatar material
+  const mat2 = new THREE.MeshBasicMaterial({
     map: scrollTex,
     transparent: true,
     alphaTest: 0.02,
-    roughness: 0.35,
-    metalness: 0.04,
-    emissive: new THREE.Color(0xffffff),
-    emissiveMap: scrollTex,
-    emissiveIntensity: 0.55,
+    fog: false,
     opacity: 0.0,
+    toneMapped: true,
     side: THREE.DoubleSide
   });
 
   const mesh2 = new THREE.Mesh(geo2, mat2);
-  mesh2.castShadow = true;
   scrollGroup.add(mesh2);
-
-  // Dedicated Warm Key Light on the scroll avatar
-  const scrollKeyLight = new THREE.PointLight(0xffecd0, 3.8, 18, 1.1);
-  scrollKeyLight.position.set(0.6, 3.2, 2.8);
-  scrollGroup.add(scrollKeyLight);
 
   const scrollShadowGeo = new THREE.PlaneGeometry(1.8, 0.95);
   scrollShadowGeo.rotateX(-Math.PI / 2);
