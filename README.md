@@ -7,19 +7,30 @@
 ## 🌟 Overview
 
 This portfolio delivers an immersive 3D Kyoto architectural sanctuary combined with instant, production-grade web performance:
-- **Instant First Paint & Zero-Iframe Architecture**: Fully modernized for sub-100ms First Contentful Paint, direct DOM indexing for search engines, and responsive mobile rendering.
+- **Instant First Paint & Zero-Iframe Architecture**: Modernized for sub-100ms First Contentful Paint, direct DOM indexing for search engines, and responsive mobile rendering.
 - **Synchronous WebGL Sanctuary Engine**: Procedurally lit torii gates, timber halls, lantern glow, and real-time reflection mechanics powered by Three.js without artificial preloader delays.
 - **Featured Technical Builds (The Creations)**:
   - **SatQuery AI** (*Smart India Hackathon 2026 · Team 214 Spaced Out*): Multimodal vision-language assistant for remote sensing imagery (FastAPI, PyTorch, OpenCV, React, Leaflet).
   - **Ferry Forecast** (*Unified Mentors Internship · Aug–Nov 2026*): Short-term ticket demand forecasting & predictive decision support across 261,538 Toronto Ferry records (XGBoost, Random Forest, Streamlit).
   - **GreenLeaf Nexus** (*Personal Project*): Full-stack billing and inventory management system with atomic stock deduction, near-expiry alerts, and a 7-day moving-average replenishment forecasting dashboard (Flask, SQLAlchemy, Pandas, Plotly, pytest).
-- **Verified Credentials & Leadership (The Honors)**:
+- **Verified Credentials & Honors Gallery (Chapter 04)**:
   - **Google Build with AI Bootcamp** (*Google for Developers / Hack2skill · Bangalore, Nov 17, 2026*): Certificate ID `2026H2S10BWAIBBLR-P00229`.
   - **Deloitte Data Analytics Job Simulation** (*Forage · Nov 15, 2026*): Data Analysis & Forensic Technology, Enrolment `6af88bcb291935b560e3b7ea`.
-  - **Smart India Hackathon 2026 Finalist**: Team 214 – Spaced Out (Problem Statement SIH26167).
-  - **Google Gemini Student Ambassador (2025)**: Campus technical lead for generative AI and agentic workflows.
+  - **TATA GenAI Powered Data Analytics Simulation** (*Forage · Nov 14, 2026*): Exploratory Data Analysis & Risk Profiling, Enrolment `6ae3a90640463a9e7b3fef8c`.
+  - **Introduction to Generative AI** (*Powered by Google Cloud & Simplilearn SkillUp · May 18, 2026*): Certificate Code `10242183`.
+  - **Learning Graph Neural Networks** (*LinkedIn Learning · Sep 08, 2026*): Graph ML, Message Passing, Certificate ID `c9f6eed5218a6f7ac8bacceb6fd74d47593cef713d34a73013752882daab8129`.
+  - **Programming Foundations: Discrete Mathematics** (*LinkedIn Learning · Sep 08, 2026*): Logic, Combinatorics, Set Theory, Certificate ID `a63234ed2aa015ddd8f1738b83959db28b7519ddbd787c2b0dc3127e3d131bf0`.
+  - **Smart India Hackathon 2026 Finalist / Internal Hackathon** (*Ministry of Education & AICTE & JAIN FET · Sep 11–12, 2026*): Team 214 – Spaced Out (Problem Statement SIH26167).
+  - **Smart India Hackathon 2025 (24h Internal Hackathon)** (*Ministry of Education & AICTE & JAIN FET · Sep 12–13, 2025*): Active participation, problem-solving, and team innovation.
+  - **be10x AI Tools and ChatGPT Professional Workshop** (*be10x Co-Founders Verified · May 10, 2026*): Automated EDA, rapid prototyping, and AI-accelerated debugging.
+  - **Unified Mentor Data Analyst Internship Appointment & Verification** (*Unified Mentor Pvt. Ltd. · DLF Cybercity*): UNID `UMID23062699610`.
+- **Interactive UI Experience**:
+  - Category Filter Tabs (`All`, `AI & Machine Learning`, `Data Analytics & Industry`, `Hackathons`, `Foundations`).
+  - One-click **Copy Credential ID** with instant clipboard feedback.
+  - High-resolution Lightbox Inspection with Left/Right arrow cycling and Escape key support.
+  - Direct download links to original PDFs and high-res certificates.
 - **The Workshop**: Capability matrix across AI/ML (PyTorch, scikit-learn, OpenCV), Programming (Python, Java, JavaScript, SQL), Frameworks (FastAPI, Flask, Streamlit, React, Plotly), and System Engineering.
-- **Direct Connect**: One-click Resume PDF download, verified certificate inspection, and direct contact channels.
+- **Direct Connect**: One-click Resume PDF download (`/Subhadeep_Bhandari_Resume.pdf`), verified certificate inspection, and direct contact channels.
 
 ---
 
@@ -70,22 +81,12 @@ npm run preview
 
 ## 🌐 Deployment Guide
 
-### Option 1: Vercel (Recommended)
-1. Push your repository to GitHub.
-2. Import project in [Vercel](https://vercel.com/).
-3. Framework: **Vite**; Output Directory: `dist`.
-4. Click **Deploy**.
+### Option 1: Vercel (Production)
+- **Live URL**: [https://subhadeepportfolio.vercel.app](https://subhadeepportfolio.vercel.app)
+- Automatically synchronized on push to `main` branch.
 
-### Option 2: GitHub Pages (Automated via Actions)
-Included `.github/workflows/deploy.yml` builds and deploys `dist/` automatically on push to `main`:
-1. In repository settings, navigate to **Settings** > **Pages**.
-2. Select **Source** -> **GitHub Actions**.
-
-### Option 3: Netlify
-1. Connect repository on Netlify.
-2. Build command: `npm run build`
-3. Publish directory: `dist`
-4. Click **Deploy Site**.
+### Option 2: GitHub Repository
+- **Repository URL**: [https://github.com/SubhadeepBhandari25/Subhadeep-Bhandari-Portfolio](https://github.com/SubhadeepBhandari25/Subhadeep-Bhandari-Portfolio)
 
 ---
 

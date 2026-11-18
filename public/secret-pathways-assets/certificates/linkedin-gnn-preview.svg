@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="liBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="liShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect x="16" y="16" width="768" height="488" rx="16" fill="url(#liBg)" stroke="#0a66c2" stroke-width="6" filter="url(#liShadow)"/>
+
+  <!-- LinkedIn Learning Logo -->
+  <g transform="translate(290, 48)">
+    <text x="0" y="32" font-family="'Onest', -apple-system, sans-serif" font-size="28" font-weight="800" fill="#0a66c2">Linked<tspan fill="#ffffff" stroke="#0a66c2" stroke-width="8" stroke-linejoin="round">in</tspan><tspan fill="#0a66c2"> Learning</tspan></text>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(400, 160)" text-anchor="middle">
+    <text x="0" y="20" font-family="'Cinzel', serif, 'Onest', sans-serif" font-size="32" font-weight="700" fill="#0f172a" letter-spacing="-0.5">Learning Graph Neural Networks</text>
+    <text x="0" y="60" font-family="'Onest', sans-serif" font-size="16" font-weight="600" fill="#475569">Course completed by <tspan font-weight="800" fill="#0f172a">Subhadeep Bhandari</tspan></text>
+    <text x="0" y="85" font-family="'Onest', sans-serif" font-size="13" fill="#64748b">Sep 08, 2026 at 02:36PM UTC • 2 hours 13 minutes</text>
+  </g>
+
+  <!-- Top Skills Badges -->
+  <g transform="translate(400, 290)" text-anchor="middle">
+    <text x="0" y="0" font-family="'Onest', sans-serif" font-size="12" font-weight="700" fill="#334155" text-transform="uppercase" letter-spacing="1">Top Skills Covered</text>
+    
+    <g transform="translate(-230, 15)">
+      <rect x="0" y="0" width="140" height="34" rx="17" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.5"/>
+      <text x="70" y="22" font-family="'Onest', sans-serif" font-size="12" font-weight="600" fill="#0284c7" text-anchor="middle">Neural Networks</text>
+
+      <rect x="155" y="0" width="140" height="34" rx="17" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.5"/>
+      <text x="225" y="22" font-family="'Onest', sans-serif" font-size="12" font-weight="600" fill="#0284c7" text-anchor="middle">Graph Networks</text>
+
+      <rect x="310" y="0" width="160" height="34" rx="17" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.5"/>
+      <text x="390" y="22" font-family="'Onest', sans-serif" font-size="12" font-weight="600" fill="#0284c7" text-anchor="middle">Artificial Intelligence</text>
+    </g>
+  </g>
+
+  <!-- Footer with Signature & Badge -->
+  <g transform="translate(56, 420)">
+    <!-- Signature mockup -->
+    <path d="M120 -10 Q140 -30 160 -10 T200 -20 T240 0" stroke="#0f172a" stroke-width="2" fill="none"/>
+    <text x="180" y="20" font-family="'Onest', sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Shea Hanson, Head of Learning Content Strategy</text>
+    <text x="0" y="45" font-family="'JetBrains Mono', monospace" font-size="9" fill="#94a3b8">Certificate ID: c9f6eed5218a6f7ac8bacceb6fd74d47593cef713d34a73013752882daab8129</text>
+  </g>
+
+  <!-- Course Completion Seal -->
+  <g transform="translate(680, 420)">
+    <circle cx="0" cy="0" r="38" fill="#0a66c2"/>
+    <circle cx="0" cy="0" r="32" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="0" y="-12" font-family="'Onest', sans-serif" font-size="7" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="1">COURSE</text>
+    <text x="0" y="8" font-family="'Onest', sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">in</text>
+    <text x="0" y="22" font-family="'Onest', sans-serif" font-size="7" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="1">COMPLETION</text>
+  </g>
+</svg>

@@ -1534,6 +1534,51 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   align-items: center;
   gap: 10px;
 }
+
+.modal-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(224, 35, 28, 0.25);
+  border: 1px solid rgba(224, 35, 28, 0.7);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.modal-pdf-btn:hover {
+  background: var(--vermilion);
+  box-shadow: 0 0 14px rgba(224, 35, 28, 0.5);
+  color: #fff;
+}
+.modal-copy-id-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(223, 231, 224, 0.2);
+  color: #dfe7e0;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+.modal-copy-id-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+.modal-copy-id-btn.copied {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: rgba(16, 185, 129, 0.7);
+  color: #10b981;
+}
+
 .modal-gh-btn {
   display: inline-flex;
   align-items: center;
@@ -1766,57 +1811,133 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 }
 
 /* Credentials Section */
+
+/* ======================== ENHANCED CREDENTIALS & CERTIFICATES UI ======================== */
+.cert-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  margin-bottom: 24px;
+}
+.cert-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(223, 231, 224, 0.12);
+  color: #94a3b8;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.cert-filter-btn:hover {
+  color: #fff;
+  border-color: rgba(224, 35, 28, 0.4);
+  background: rgba(25, 33, 50, 0.8);
+}
+.cert-filter-btn.active {
+  color: #fff;
+  background: rgba(224, 35, 28, 0.15);
+  border-color: rgba(224, 35, 28, 0.85);
+  box-shadow: 0 0 16px rgba(224, 35, 28, 0.25);
+}
+.cert-count {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 10px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+.cert-filter-btn.active .cert-count {
+  background: rgba(224, 35, 28, 0.4);
+  color: #fff;
+}
 .cert-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
-  margin-top: 36px;
+  margin-top: 12px;
 }
-@media (max-width: 860px) {
+@media (max-width: 920px) {
   .cert-grid {
     grid-template-columns: 1fr;
   }
 }
 .cert-card {
   position: relative;
-  background: rgba(10, 15, 20, 0.78);
+  background: rgba(10, 15, 22, 0.82);
   border: 1px solid rgba(223, 231, 224, 0.12);
   border-radius: 14px;
   overflow: hidden;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.3s ease;
   display: flex;
   flex-direction: column;
 }
+.cert-card.is-hidden {
+  display: none !important;
+}
 .cert-card:hover {
-  border-color: rgba(224, 35, 28, 0.5);
+  border-color: rgba(224, 35, 28, 0.55);
   transform: translateY(-4px);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.8), 0 0 30px rgba(224, 35, 28, 0.15);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 24px rgba(224, 35, 28, 0.15);
 }
 .cert-preview-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #030608;
+  background: #020617;
   cursor: pointer;
 }
 .cert-preview-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #080d14;
   transition: transform 0.5s ease;
 }
 .cert-card:hover .cert-preview-img {
-  transform: scale(1.03);
+  transform: scale(1.025);
+}
+.cert-zoom-cue {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+.cert-card:hover .cert-zoom-cue {
+  opacity: 1;
 }
 .cert-badge-overlay {
   position: absolute;
   top: 14px;
   left: 14px;
   padding: 4px 10px;
-  background: rgba(5, 8, 12, 0.88);
+  background: rgba(5, 8, 12, 0.9);
   border: 1px solid rgba(224, 35, 28, 0.45);
   border-radius: 100px;
   font-size: 10px;
@@ -1825,44 +1946,142 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   text-transform: uppercase;
   color: var(--bone);
   backdrop-filter: blur(8px);
+  z-index: 2;
 }
 .cert-body {
-  padding: 24px;
+  padding: 22px;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+.cert-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.cert-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #10b981;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.cert-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+.cert-date {
+  font-size: 11px;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+}
 .cert-body h3 {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 600;
   color: var(--bone);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   line-height: 1.35;
 }
-.cert-meta {
+.cert-org {
   font-size: 11px;
   color: var(--ember);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-weight: 500;
 }
 .cert-desc {
-  font-size: 13px;
-  color: #9aa5a0;
-  line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: 12.5px;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.cert-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.cert-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 10.5px;
+  color: #cbd5e1;
+}
+.cert-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cert-id-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+.cert-id-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 6px;
+}
+.cert-id-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: #e2e8f0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
+.cert-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 10px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.cert-copy-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+.cert-copy-btn.copied {
+  color: #10b981;
 }
 .cert-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 10px;
 }
 .cert-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 8px 14px;
   border-radius: 6px;
@@ -1872,6 +2091,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   text-decoration: none;
   cursor: pointer;
   transition: all 0.25s ease;
+  flex: 1;
 }
 .cert-btn--primary {
   background: rgba(224, 35, 28, 0.2);
@@ -1884,12 +2104,12 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 }
 .cert-btn--secondary {
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(223, 231, 224, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--bone);
 }
 .cert-btn--secondary:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(223, 231, 224, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
 }
 </style>
 </head>
@@ -1912,6 +2132,14 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
         <span class="modal-sub" id="modalSub">Live 48h Continuous Demand Velocity</span>
       </div>
       <div class="modal-actions">
+        <button type="button" id="modalCopyIdBtn" class="modal-copy-id-btn" style="display:none;" onclick="copyCertIdFromModal(this)">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+          <span id="modalCopyIdText">Copy ID</span>
+        </button>
+        <a id="modalPdfLink" class="modal-pdf-btn" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
+          <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Open Document</span>
+        </a>
         <a id="modalGithubLink" class="modal-gh-btn" href="https://github.com/SubhadeepBhandari25" target="_blank" rel="noopener noreferrer">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
@@ -2293,92 +2521,460 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   </div>
   <div class="cur-head">
     <h2 class="display h-sec" data-rv="up">Validated through practice &amp; leadership.</h2>
-    <p class="body-lg" data-rv="up">Official certifications, nationwide hackathons, and developer bootcamps.</p>
+    <p class="body-lg" data-rv="up">10 verified credentials across artificial intelligence, enterprise analytics, nationwide hackathons, and mathematical foundations.</p>
   </div>
-  <div class="cert-grid">
-    
-    <!-- Cert 1: Google Build with AI -->
-    <div class="cert-card" data-rv="up">
+
+  <!-- Interactive Filter Tabs -->
+  <div class="cert-filter-bar" data-rv="up">
+    <button type="button" class="cert-filter-btn active" data-filter="all" onclick="filterCerts('all', this)">All Credentials <span class="cert-count">10</span></button>
+    <button type="button" class="cert-filter-btn" data-filter="ai-ml" onclick="filterCerts('ai-ml', this)">AI &amp; Machine Learning <span class="cert-count">4</span></button>
+    <button type="button" class="cert-filter-btn" data-filter="analytics" onclick="filterCerts('analytics', this)">Data Analytics &amp; Industry <span class="cert-count">3</span></button>
+    <button type="button" class="cert-filter-btn" data-filter="hackathons" onclick="filterCerts('hackathons', this)">Hackathons &amp; Recognition <span class="cert-count">2</span></button>
+    <button type="button" class="cert-filter-btn" data-filter="foundations" onclick="filterCerts('foundations', this)">Foundations &amp; Core CS <span class="cert-count">1</span></button>
+  </div>
+
+  <div class="cert-grid" id="certGrid">
+
+    <!-- Google Build with AI Bootcamp -->
+    <div class="cert-card" data-category="ai-ml" data-rv="up">
       <div class="cert-preview-wrap" onclick="openLightbox('certGoogle', 0)">
-        <img src="secret-pathways-assets/certificates/google-build-with-ai-preview.svg" alt="Google Build with AI Bootcamp Bangalore Certificate" class="cert-preview-img" loading="lazy" />
+        <img src="certificates/google-build-with-ai-preview.svg" alt="Google Build with AI Bootcamp Certificate" class="cert-preview-img" loading="lazy" />
         <span class="cert-badge-overlay">Google for Developers</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
       </div>
       <div class="cert-body">
         <div>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Verified</span>
+            <span class="cert-date">Nov 17, 2026</span>
+          </div>
           <h3>Google Build with AI Bootcamp</h3>
-          <div class="cert-meta">Bangalore · November 17, 2026 · ID: 2026H2S10BWAIBBLR-P00229</div>
-          <p class="cert-desc">Selected participant in the intensive in-person bootcamp by Google for Developers and Hack2skill. Demonstrated technical expertise required to build AI agents, architect workflows, and integrate generative AI into production-ready systems.</p>
+          <div class="cert-org">Google for Developers & Hack2skill · Bangalore</div>
+          <p class="cert-desc">Demonstrated technical expertise required to build AI agents, architect multi-agent workflows, and integrate generative AI into production-ready systems during the in-person Bangalore bootcamp.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">AI Agents</span><span class="cert-tag">GenAI Workflows</span><span class="cert-tag">Production AI</span><span class="cert-tag">Google Cloud</span>
+          </div>
         </div>
-        <div class="cert-actions">
-          <a class="cert-btn cert-btn--primary" href="certificates/google-build-with-ai-bootcamp.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
-            <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>View Certificate (PDF)</span>
-          </a>
-          <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certGoogle', 0)" data-cursor>
-            <span>Inspect Preview</span>
-          </button>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="2026H2S10BWAIBBLR-P00229">2026H2S10BWAIBBLR-P00229</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('2026H2S10BWAIBBLR-P00229', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/google-build-with-ai-bootcamp.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Original PDF</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certGoogle', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Cert 2: Deloitte Data Analytics Simulation -->
-    <div class="cert-card" data-rv="up">
+    <!-- Deloitte Data Analytics Job Simulation -->
+    <div class="cert-card" data-category="analytics" data-rv="up">
       <div class="cert-preview-wrap" onclick="openLightbox('certDeloitte', 0)">
-        <img src="secret-pathways-assets/certificates/deloitte-preview.svg" alt="Deloitte Data Analytics Job Simulation Certificate" class="cert-preview-img" loading="lazy" />
+        <img src="certificates/deloitte-preview.svg" alt="Deloitte Data Analytics Job Simulation Certificate" class="cert-preview-img" loading="lazy" />
         <span class="cert-badge-overlay">Deloitte · Forage</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
       </div>
       <div class="cert-body">
         <div>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Verified</span>
+            <span class="cert-date">Nov 15, 2026</span>
+          </div>
           <h3>Deloitte Data Analytics Job Simulation</h3>
-          <div class="cert-meta">Completed November 15, 2026 · Verification: 6af88bcb291935b560e3b7ea</div>
-          <p class="cert-desc">Practical simulation covering enterprise data analysis, forensic technology investigation, exploratory telemetry review, and data-driven executive presentation through Deloitte's program on Forage.</p>
+          <div class="cert-org">Deloitte · Forage Industry Simulation</div>
+          <p class="cert-desc">Completed practical enterprise simulation covering data analysis, forensic technology investigation, exploratory telemetry review, and data-driven executive presentations.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">Data Analytics</span><span class="cert-tag">Forensic Tech</span><span class="cert-tag">Exploratory EDA</span><span class="cert-tag">Executive Insights</span>
+          </div>
         </div>
-        <div class="cert-actions">
-          <a class="cert-btn cert-btn--primary" href="certificates/deloitte-data-analytics-simulation.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
-            <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>View Certificate (PDF)</span>
-          </a>
-          <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certDeloitte', 0)" data-cursor>
-            <span>Inspect Preview</span>
-          </button>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="6af88bcb291935b560e3b7ea">6af88bcb291935b560e3b7ea</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('6af88bcb291935b560e3b7ea', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/deloitte-data-analytics-simulation.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Original PDF</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certDeloitte', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Cert 3: Smart India Hackathon 2026 -->
-    <div class="cert-card" data-rv="up">
-      <div class="cert-body" style="padding: 28px;">
+    <!-- GenAI Powered Data Analytics Simulation -->
+    <div class="cert-card" data-category="analytics" data-rv="up">
+      <div class="cert-preview-wrap" onclick="openLightbox('certTata', 0)">
+        <img src="certificates/tata-genai-preview.svg" alt="GenAI Powered Data Analytics Simulation Certificate" class="cert-preview-img" loading="lazy" />
+        <span class="cert-badge-overlay">TATA · Forage</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
+      </div>
+      <div class="cert-body">
         <div>
-          <span class="modal-badge" style="display:inline-block;margin-bottom:12px;">National Hackathon</span>
-          <h3>Smart India Hackathon 2026 Finalist</h3>
-          <div class="cert-meta">Team 214 – Spaced Out · Problem Statement SIH26167</div>
-          <p class="cert-desc">Led the algorithmic development of SatQuery AI, an end-to-end vision-language assistant that translates natural-language queries into spectral-index segmentation (NDVI/NDWI/NDBI/ExG) and GeoTIFF georeferenced bounding boxes.</p>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Verified</span>
+            <span class="cert-date">Nov 14, 2026</span>
+          </div>
+          <h3>GenAI Powered Data Analytics Simulation</h3>
+          <div class="cert-org">TATA · Forage Industry Simulation</div>
+          <p class="cert-desc">Executed industry-grade tasks in exploratory data analysis and risk profiling, delinquency prediction using predictive AI models, business storytelling, and designing an AI-driven collections strategy.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">GenAI Analytics</span><span class="cert-tag">Risk Profiling</span><span class="cert-tag">Delinquency Modeling</span><span class="cert-tag">Strategy</span>
+          </div>
         </div>
-        <div class="cert-actions">
-          <a class="cert-btn cert-btn--secondary" href="https://github.com/SubhadeepBhandari25" target="_blank" rel="noopener noreferrer" data-cursor>
-            <span>View SatQuery AI Repository</span>
-          </a>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="6ae3a90640463a9e7b3fef8c">6ae3a90640463a9e7b3fef8c</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('6ae3a90640463a9e7b3fef8c', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/tata-genai-data-analytics-simulation.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Original PDF</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certTata', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Cert 4: Google Gemini Student Ambassador -->
-    <div class="cert-card" data-rv="up">
-      <div class="cert-body" style="padding: 28px;">
+    <!-- Introduction to Generative AI -->
+    <div class="cert-card" data-category="ai-ml" data-rv="up">
+      <div class="cert-preview-wrap" onclick="openLightbox('certSimplilearn', 0)">
+        <img src="certificates/simplilearn-google-cloud-generative-ai.jpg" alt="Introduction to Generative AI Certificate" class="cert-preview-img" loading="lazy" />
+        <span class="cert-badge-overlay">Google Cloud · SkillUp</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
+      </div>
+      <div class="cert-body">
         <div>
-          <span class="modal-badge" style="display:inline-block;margin-bottom:12px;">Student Leadership</span>
-          <h3>Google Gemini Student Ambassador (2025)</h3>
-          <div class="cert-meta">Campus Technical Leadership · Generative AI Focus</div>
-          <p class="cert-desc">Promoted campus-wide student engagement with Google's generative AI models and developer APIs. Organized interactive developer workshops, prompt engineering hackathons, and agentic AI learning sessions.</p>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Verified</span>
+            <span class="cert-date">May 18, 2026</span>
+          </div>
+          <h3>Introduction to Generative AI</h3>
+          <div class="cert-org">Powered by Google Cloud & Simplilearn SkillUp</div>
+          <p class="cert-desc">Completed comprehensive curriculum powered by Google Cloud covering transformer foundations, large language model fine-tuning, prompt design, and cloud AI deployment.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">Generative AI</span><span class="cert-tag">Google Cloud</span><span class="cert-tag">LLMs</span><span class="cert-tag">Transformer Models</span>
+          </div>
         </div>
-        <div class="cert-actions">
-          <a class="cert-btn cert-btn--secondary" href="#eternity" data-cursor>
-            <span>Collaborate With Me</span>
-          </a>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="10242183">10242183</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('10242183', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/simplilearn-google-cloud-generative-ai.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Original PDF</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certSimplilearn', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
+    <!-- Learning Graph Neural Networks -->
+    <div class="cert-card" data-category="ai-ml" data-rv="up">
+      <div class="cert-preview-wrap" onclick="openLightbox('certLinkedinGnn', 0)">
+        <img src="certificates/linkedin-gnn-preview.svg" alt="Learning Graph Neural Networks Certificate" class="cert-preview-img" loading="lazy" />
+        <span class="cert-badge-overlay">LinkedIn Learning</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Verified</span>
+            <span class="cert-date">Sep 08, 2026</span>
+          </div>
+          <h3>Learning Graph Neural Networks</h3>
+          <div class="cert-org">LinkedIn Learning · 2h 13m</div>
+          <p class="cert-desc">Mastered Graph Neural Network architectures, graph representations, node and edge embeddings, message passing algorithms, and topological pattern extraction for complex networks.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">Graph Neural Networks</span><span class="cert-tag">Deep Learning</span><span class="cert-tag">PyTorch Geometric</span><span class="cert-tag">Artificial Intelligence</span>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="c9f6eed5218a6f7ac8bacceb6fd74d47593cef713d34a73013752882daab8129">c9f6eed5218a6f7ac8bacceb6fd74d47593cef713d34a73013752882daab8129</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('c9f6eed5218a6f7ac8bacceb6fd74d47593cef713d34a73013752882daab8129', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/linkedin-learning-graph-neural-networks.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Original PDF</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certLinkedinGnn', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Programming Foundations: Discrete Mathematics -->
+    <div class="cert-card" data-category="foundations" data-rv="up">
+      <div class="cert-preview-wrap" onclick="openLightbox('certLinkedinMath', 0)">
+        <img src="certificates/linkedin-discrete-math-preview.svg" alt="Programming Foundations: Discrete Mathematics Certificate" class="cert-preview-img" loading="lazy" />
+        <span class="cert-badge-overlay">LinkedIn Learning</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Verified</span>
+            <span class="cert-date">Sep 08, 2026</span>
+          </div>
+          <h3>Programming Foundations: Discrete Mathematics</h3>
+          <div class="cert-org">LinkedIn Learning · 3h 9m</div>
+          <p class="cert-desc">Covered formal propositional logic, set theory, combinatorics, proof methods, recurrence relations, graph theory fundamentals, and their direct implementation in computer algorithms.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">Discrete Mathematics</span><span class="cert-tag">Logic & Sets</span><span class="cert-tag">Combinatorics</span><span class="cert-tag">Algorithmic Foundations</span>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="a63234ed2aa015ddd8f1738b83959db28b7519ddbd787c2b0dc3127e3d131bf0">a63234ed2aa015ddd8f1738b83959db28b7519ddbd787c2b0dc3127e3d131bf0</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('a63234ed2aa015ddd8f1738b83959db28b7519ddbd787c2b0dc3127e3d131bf0', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/linkedin-learning-discrete-mathematics.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Original PDF</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certLinkedinMath', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Smart India Hackathon 2026 — Internal Hackathon -->
+    <div class="cert-card" data-category="hackathons" data-rv="up">
+      <div class="cert-preview-wrap" onclick="openLightbox('certSih2026', 0)">
+        <img src="certificates/sih-2026-internal-hackathon.jpg" alt="Smart India Hackathon 2026 — Internal Hackathon Certificate" class="cert-preview-img" loading="lazy" />
+        <span class="cert-badge-overlay">Smart India Hackathon 2026</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Awarded</span>
+            <span class="cert-date">Sep 11–12, 2026</span>
+          </div>
+          <h3>Smart India Hackathon 2026 — Internal Hackathon</h3>
+          <div class="cert-org">MoE Innovation Cell · AICTE · JAIN FET</div>
+          <p class="cert-desc">Awarded Certificate of Participation for building SatQuery AI (Team 214 – Spaced Out, Problem Statement SIH26167), an AI-powered natural-language assistant for multimodal remote sensing and satellite analytics.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">Smart India Hackathon</span><span class="cert-tag">SatQuery AI</span><span class="cert-tag">Multimodal Vision</span><span class="cert-tag">Remote Sensing</span>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="SIH26167 · Team 214 (Spaced Out)">SIH26167 · Team 214 (Spaced Out)</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('SIH26167 · Team 214 (Spaced Out)', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/sih-2026-internal-hackathon.jpg" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>High-Res Certificate</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certSih2026', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Smart India Hackathon 2025 — 24h Hackathon -->
+    <div class="cert-card" data-category="hackathons" data-rv="up">
+      <div class="cert-preview-wrap" onclick="openLightbox('certSih2025', 0)">
+        <img src="certificates/sih-2025-internal-hackathon.jpg" alt="Smart India Hackathon 2025 — 24h Hackathon Certificate" class="cert-preview-img" loading="lazy" />
+        <span class="cert-badge-overlay">Smart India Hackathon 2025</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Awarded</span>
+            <span class="cert-date">Sep 12–13, 2025</span>
+          </div>
+          <h3>Smart India Hackathon 2025 — 24h Hackathon</h3>
+          <div class="cert-org">MoE Innovation Cell · AICTE · JAIN FET</div>
+          <p class="cert-desc">Recognized for active participation, technical creativity, and rapid collaborative development during the intensive 24-hour Internal Smart India Hackathon conducted at JAIN FET.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">24h Hackathon</span><span class="cert-tag">Rapid Prototyping</span><span class="cert-tag">System Design</span><span class="cert-tag">AICTE / MoE</span>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="Internal SIH 2025 · 24-Hour">Internal SIH 2025 · 24-Hour</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('Internal SIH 2025 · 24-Hour', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/sih-2025-internal-hackathon.jpg" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>High-Res Certificate</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certSih2025', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- AI Tools & ChatGPT Professional Workshop -->
+    <div class="cert-card" data-category="ai-ml" data-rv="up">
+      <div class="cert-preview-wrap" onclick="openLightbox('certBe10x', 0)">
+        <img src="certificates/be10x-ai-tools-preview.svg" alt="AI Tools & ChatGPT Professional Workshop Certificate" class="cert-preview-img" loading="lazy" />
+        <span class="cert-badge-overlay">be10x · AI Workshop</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Verified</span>
+            <span class="cert-date">May 10, 2026</span>
+          </div>
+          <h3>AI Tools & ChatGPT Professional Workshop</h3>
+          <div class="cert-org">be10x Co-Founders Verified</div>
+          <p class="cert-desc">Verified completion of professional generative AI tooling workshop. Evaluated on automated data analysis in under 30 minutes, rapid presentation synthesis in under 5 minutes, and accelerated AI-driven code debugging.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">AI Tools</span><span class="cert-tag">ChatGPT</span><span class="cert-tag">Automated EDA</span><span class="cert-tag">Rapid Prototyping</span>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="be10x-VERIFIED-WORKSHOP">be10x-VERIFIED-WORKSHOP</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('be10x-VERIFIED-WORKSHOP', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/be10x-ai-tools-workshop.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Original PDF</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certBe10x', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Data Analyst Internship Appointment & Verification -->
+    <div class="cert-card" data-category="analytics" data-rv="up">
+      <div class="cert-preview-wrap" onclick="openLightbox('certUnified', 0)">
+        <img src="certificates/unified-mentor-preview.svg" alt="Data Analyst Internship Appointment & Verification Certificate" class="cert-preview-img" loading="lazy" />
+        <span class="cert-badge-overlay">Unified Mentor</span>
+        <div class="cert-zoom-cue">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Inspect Credential</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div>
+          <div class="cert-top-row">
+            <span class="cert-status-badge"><span class="cert-status-dot"></span>Verified</span>
+            <span class="cert-date">Jul – Nov 2026</span>
+          </div>
+          <h3>Data Analyst Internship Appointment & Verification</h3>
+          <div class="cert-org">Unified Mentor Pvt. Ltd. · DLF Cybercity</div>
+          <p class="cert-desc">Official appointment and verified completion of 4-month Data Analyst Internship. Engineered 15-minute velocity demand forecasting models on 261,538 Toronto Ferry records and deployed predictive decision support tools.</p>
+          <div class="cert-tags">
+            <span class="cert-tag">Data Analyst Intern</span><span class="cert-tag">Time-Series</span><span class="cert-tag">261K+ Records</span><span class="cert-tag">Predictive Systems</span>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <div class="cert-id-bar">
+            <span class="cert-id-label">ID:</span>
+            <code class="cert-id-code" title="UMID: UMID23062699610">UMID: UMID23062699610</code>
+            <button type="button" class="cert-copy-btn" onclick="copyCertId('UMID: UMID23062699610', this)" title="Copy Credential ID">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="cert-actions">
+            <a class="cert-btn cert-btn--primary" href="certificates/unified-mentor-internship-offer.pdf" target="_blank" rel="noopener noreferrer" data-cursor>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Appointment Letter</span>
+            </a>
+            <button type="button" class="cert-btn cert-btn--secondary" onclick="openLightbox('certUnified', 0)" data-cursor>
+              <span>Inspect</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -6158,6 +6754,19 @@ const JOBS = [
 /* ========================================================
    PROJECT SHOWCASE & LIGHTBOX INTERACTION LOGIC
    ======================================================== */
+const CERT_ORDER = [
+  'certGoogle',
+  'certDeloitte',
+  'certTata',
+  'certSimplilearn',
+  'certLinkedinGnn',
+  'certLinkedinMath',
+  'certSih2026',
+  'certSih2025',
+  'certBe10x',
+  'certUnified'
+];
+
 const PROJECT_DATA = {
   satquery: {
     title: "SatQuery AI — Vision-Language Assistant for Remote Sensing",
@@ -6190,8 +6799,8 @@ const PROJECT_DATA = {
       {
         src: "secret-pathways-assets/projects/ferry-forecast-2.png",
         sub: "MAE Multi-Model Benchmark & Prediction Intervals",
-        caption: "Engineered 49 leakage-safe features and benchmarked Naive, Moving Average, Ridge, Random Forest, Gradient Boosting, and XGBoost models on a chronological holdout using MAE, RMSE, WAPE, and peak-miss rate in a Streamlit decision application.",
-        badge: "Model Evaluation"
+        caption: "Engineered 49 leakage-safe features and benchmarked Naive, Moving Average, Ridge, Random Forest, Gradient Boosting, and XGBoost models on a chronological holdout using MAE, RMSE, WAPE, and peak-miss rate.",
+        badge: "Chronological Holdout"
       }
     ]
   },
@@ -6201,27 +6810,27 @@ const PROJECT_DATA = {
     items: [
       {
         src: "secret-pathways-assets/projects/greenleaf-1.svg",
-        sub: "Real-Time Inventory Movement Ledger & Atomic Deductions",
-        caption: "Full-stack billing and inventory management system built with Python, Flask, SQLAlchemy, and pytest. Features ACID-compliant atomic stock deductions at checkout, RBAC for admin/cashier roles, and real-time low-stock/near-expiry alerts.",
-        badge: "Full-Stack Python & Flask"
+        sub: "Atomic Inventory Movement Ledger & POS Checkout",
+        caption: "Full-stack inventory control platform with atomic database transactions, role-based access control (Admin & Cashier), duplicate-detection CSV ingestion, and formula-injection sanitization.",
+        badge: "Flask · SQLAlchemy"
       },
       {
         src: "secret-pathways-assets/projects/greenleaf-2.svg",
-        sub: "Analytics Dashboard & 7-Day Demand Forecasting",
-        caption: "Integrated Pandas and Plotly analytics dashboard for sales trends, category performance, and slow-moving stock, combined with a 7-day moving-average demand forecasting engine for automated safety-stock replenishment suggestions.",
+        sub: "Predictive Demand Analytics & Safety-Stock Alerts",
+        caption: "Interactive analytics suite with 7-day moving-average demand forecasting, automated reorder triggers, slow-moving SKU flagging, and category revenue distribution.",
         badge: "Pandas · Plotly · Pytest"
       }
     ]
   },
   certGoogle: {
     title: "Google Build with AI Bootcamp — Certificate of Participation",
-    github: "https://github.com/SubhadeepBhandari25",
+    id: "2026H2S10BWAIBBLR-P00229",
     pdf: "certificates/google-build-with-ai-bootcamp.pdf",
     items: [
       {
-        src: "secret-pathways-assets/certificates/google-build-with-ai-preview.svg",
+        src: "certificates/google-build-with-ai-preview.svg",
         sub: "Google for Developers · Build with AI Bootcamp Bangalore",
-        caption: "Certificate ID: 2026H2S10BWAIBBLR-P00229 | Dated: 17/11/2026. Successfully participated in the in-person Google Build with AI Bootcamp. Demonstrated skills to build AI agents, architect workflows, and integrate generative AI into production systems.",
+        caption: "Certificate ID: 2026H2S10BWAIBBLR-P00229 | Dated: 17/11/2026. Successfully participated in the intensive in-person Google Build with AI Bootcamp. Demonstrated skills to build AI agents, architect workflows, and integrate generative AI into production systems.",
         badge: "Google for Developers",
         pdf: "certificates/google-build-with-ai-bootcamp.pdf"
       }
@@ -6229,15 +6838,127 @@ const PROJECT_DATA = {
   },
   certDeloitte: {
     title: "Deloitte Data Analytics Job Simulation — Certificate of Completion",
-    github: "https://github.com/SubhadeepBhandari25",
+    id: "6af88bcb291935b560e3b7ea",
     pdf: "certificates/deloitte-data-analytics-simulation.pdf",
     items: [
       {
-        src: "secret-pathways-assets/certificates/deloitte-preview.svg",
+        src: "certificates/deloitte-preview.svg",
         sub: "Deloitte · Data Analytics & Forensic Technology Simulation",
-        caption: "Issued: November 15th, 2026 | Enrolment: 6af88bcb291935b560e3b7ea | User Code: 6ad44ba551a640ee73311bc1. Completed practical tasks in Data Analysis, Forensic Technology, and Executive Client Briefing via Forage.",
+        caption: "Issued: November 15th, 2026 | Enrolment: 6af88bcb291935b560e3b7ea | User Code: 6ad44ba551a640ee73311bc1. Completed practical tasks in Data Analysis, Forensic Technology investigation, exploratory telemetry review, and data-driven client presentations via Forage.",
         badge: "Deloitte · Forage",
         pdf: "certificates/deloitte-data-analytics-simulation.pdf"
+      }
+    ]
+  },
+  certTata: {
+    title: "Tata GenAI Powered Data Analytics Simulation — Certificate of Completion",
+    id: "6ae3a90640463a9e7b3fef8c",
+    pdf: "certificates/tata-genai-data-analytics-simulation.pdf",
+    items: [
+      {
+        src: "certificates/tata-genai-preview.svg",
+        sub: "TATA · GenAI Powered Data Analytics Job Simulation",
+        caption: "Issued: November 14th, 2026 | Enrolment: 6ae3a90640463a9e7b3fef8c | User Code: 6ad44ba551a640ee73311bc1. Completed practical tasks in exploratory data analysis & risk profiling, predicting delinquency with AI, business reporting, and collections strategy via Forage.",
+        badge: "TATA · Forage",
+        pdf: "certificates/tata-genai-data-analytics-simulation.pdf"
+      }
+    ]
+  },
+  certSimplilearn: {
+    title: "Introduction to Generative AI — Declaration of Completion",
+    id: "10242183",
+    pdf: "certificates/simplilearn-google-cloud-generative-ai.pdf",
+    items: [
+      {
+        src: "certificates/simplilearn-google-cloud-generative-ai.jpg",
+        sub: "Google Cloud & Simplilearn SkillUp · Course Declaration",
+        caption: "Certificate Code: 10242183 | Issued: 18th May 2026. Successfully completed online curriculum powered by Google Cloud covering generative AI principles, transformer architectures, prompt engineering, and cloud deployment.",
+        badge: "Google Cloud · SkillUp",
+        pdf: "certificates/simplilearn-google-cloud-generative-ai.pdf"
+      }
+    ]
+  },
+  certLinkedinGnn: {
+    title: "Learning Graph Neural Networks — Certificate of Completion",
+    id: "c9f6eed5218a6f7ac8bacceb6fd74d47593cef713d34a73013752882daab8129",
+    pdf: "certificates/linkedin-learning-graph-neural-networks.pdf",
+    items: [
+      {
+        src: "certificates/linkedin-gnn-preview.svg",
+        sub: "LinkedIn Learning · Learning Graph Neural Networks",
+        caption: "Certificate ID: c9f6eed5218a6f7ac8bacceb6fd74d47593cef713d34a73013752882daab8129 | Completed: Sep 08, 2026 (2h 13m). Covered Neural Networks, Graph Networks, Message Passing, and Artificial Intelligence (AI).",
+        badge: "LinkedIn Learning",
+        pdf: "certificates/linkedin-learning-graph-neural-networks.pdf"
+      }
+    ]
+  },
+  certLinkedinMath: {
+    title: "Programming Foundations: Discrete Mathematics — Certificate",
+    id: "a63234ed2aa015ddd8f1738b83959db28b7519ddbd787c2b0dc3127e3d131bf0",
+    pdf: "certificates/linkedin-learning-discrete-mathematics.pdf",
+    items: [
+      {
+        src: "certificates/linkedin-discrete-math-preview.svg",
+        sub: "LinkedIn Learning · Programming Foundations: Discrete Mathematics",
+        caption: "Certificate ID: a63234ed2aa015ddd8f1738b83959db28b7519ddbd787c2b0dc3127e3d131bf0 | Completed: Sep 08, 2026 (3h 9m). Covered Discrete Mathematics, Logic, Combinatorics, and Algorithmic Foundations.",
+        badge: "LinkedIn Learning",
+        pdf: "certificates/linkedin-learning-discrete-mathematics.pdf"
+      }
+    ]
+  },
+  certSih2026: {
+    title: "Smart India Hackathon 2026 — Certificate of Participation",
+    id: "SIH26167 · Team 214",
+    pdf: "certificates/sih-2026-internal-hackathon.jpg",
+    items: [
+      {
+        src: "certificates/sih-2026-internal-hackathon.jpg",
+        sub: "Smart India Hackathon 2026 · Internal Hackathon",
+        caption: "Conducted 11th–12th September 2026 at JAIN (Deemed-to-be University) FET. MoE Innovation Cell & AICTE. Built SatQuery AI (Team 214 – Spaced Out, Problem Statement SIH26167).",
+        badge: "SIH 2026 · MoE / AICTE",
+        pdf: "certificates/sih-2026-internal-hackathon.jpg"
+      }
+    ]
+  },
+  certSih2025: {
+    title: "Smart India Hackathon 2025 — Certificate of Participation",
+    id: "SIH 2025 · 24-Hour",
+    pdf: "certificates/sih-2025-internal-hackathon.jpg",
+    items: [
+      {
+        src: "certificates/sih-2025-internal-hackathon.jpg",
+        sub: "24 hrs Internal Smart India Hackathon 2025",
+        caption: "Conducted 12th & 13th September 2025 at Jain FET. MoE Innovation Cell, AICTE. Awarded for active participation, technical problem-solving, and team innovation in the 24-hour hackathon.",
+        badge: "SIH 2025 · MoE / AICTE",
+        pdf: "certificates/sih-2025-internal-hackathon.jpg"
+      }
+    ]
+  },
+  certBe10x: {
+    title: "AI Tools and ChatGPT Workshop — Certificate of Completion",
+    id: "be10x-VERIFIED-WORKSHOP",
+    pdf: "certificates/be10x-ai-tools-workshop.pdf",
+    items: [
+      {
+        src: "certificates/be10x-ai-tools-preview.svg",
+        sub: "be10x · AI Tools and ChatGPT Workshop",
+        caption: "Issued: May 10th, 2026. Verified completion awarded by Aditya Goenka & Aditya Kachave. Tested on AI presentation creation (<5 min), AI data analysis (<30 min), and AI code debugging (<10 min).",
+        badge: "be10x · Verified",
+        pdf: "certificates/be10x-ai-tools-workshop.pdf"
+      }
+    ]
+  },
+  certUnified: {
+    title: "Unified Mentor Data Analyst Internship Appointment & Verification",
+    id: "UMID: UMID23062699610",
+    pdf: "certificates/unified-mentor-internship-offer.pdf",
+    items: [
+      {
+        src: "certificates/unified-mentor-preview.svg",
+        sub: "Unified Mentor Pvt. Ltd. · Data Analyst Intern Appointment Letter",
+        caption: "UNID: UMID23062699610 | Date: 25/06/2026. 4-Month Data Analyst Internship (01/07/2026 to 01/11/2026). Engineered multi-horizon forecasting pipelines and decision support models.",
+        badge: "Unified Mentor · Verified",
+        pdf: "certificates/unified-mentor-internship-offer.pdf"
       }
     ]
   }
@@ -6245,6 +6966,161 @@ const PROJECT_DATA = {
 
 let currentModalProj = 'ferry';
 let currentModalIdx = 0;
+
+function openLightbox(projKey, idx) {
+  currentModalProj = projKey || 'ferry';
+  currentModalIdx = idx !== undefined ? idx : 0;
+  const data = PROJECT_DATA[currentModalProj];
+  if (!data) return;
+  updateModalView();
+  const modal = document.getElementById('projectModal');
+  if (modal) {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function closeLightbox() {
+  const modal = document.getElementById('projectModal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function navigateModal(dir) {
+  if (currentModalProj && currentModalProj.startsWith('cert')) {
+    let certIdx = CERT_ORDER.indexOf(currentModalProj);
+    if (certIdx === -1) certIdx = 0;
+    certIdx = (certIdx + dir + CERT_ORDER.length) % CERT_ORDER.length;
+    currentModalProj = CERT_ORDER[certIdx];
+    currentModalIdx = 0;
+  } else {
+    const data = PROJECT_DATA[currentModalProj];
+    if (!data) return;
+    currentModalIdx = (currentModalIdx + dir + data.items.length) % data.items.length;
+  }
+  updateModalView();
+}
+
+function updateModalView() {
+  const data = PROJECT_DATA[currentModalProj];
+  if (!data) return;
+  const item = data.items[currentModalIdx] || data.items[0];
+  const heading = document.getElementById('modalHeading');
+  const sub = document.getElementById('modalSub');
+  const badge = document.getElementById('modalBadge');
+  const caption = document.getElementById('modalCaption');
+  const img = document.getElementById('modalImg');
+  const cur = document.getElementById('modalCurrent');
+  const tot = document.getElementById('modalTotal');
+  const gh = document.getElementById('modalGithubLink');
+  const pdfBtn = document.getElementById('modalPdfLink');
+  const copyBtn = document.getElementById('modalCopyIdBtn');
+
+  if (heading) heading.textContent = data.title;
+  if (sub) sub.textContent = item.sub;
+  if (badge) badge.textContent = item.badge;
+  if (caption) caption.textContent = item.caption;
+  if (img) {
+    img.src = item.src;
+    img.alt = item.sub || data.title;
+  }
+
+  if (currentModalProj && currentModalProj.startsWith('cert')) {
+    const certIdx = CERT_ORDER.indexOf(currentModalProj);
+    if (cur) cur.textContent = (certIdx !== -1 ? certIdx + 1 : 1);
+    if (tot) tot.textContent = CERT_ORDER.length;
+    if (gh) gh.style.display = 'none';
+    if (pdfBtn) {
+      pdfBtn.style.display = 'inline-flex';
+      pdfBtn.href = data.pdf || item.pdf || item.src;
+      const labelSpan = pdfBtn.querySelector('span');
+      if (labelSpan) {
+        labelSpan.textContent = (data.pdf && data.pdf.endsWith('.pdf')) ? 'View Original PDF' : 'View Document';
+      }
+    }
+    if (copyBtn) {
+      if (data.id) {
+        copyBtn.style.display = 'inline-flex';
+        copyBtn.setAttribute('data-id', data.id);
+        const textSpan = document.getElementById('modalCopyIdText');
+        if (textSpan) textSpan.textContent = 'Copy ID';
+        copyBtn.classList.remove('copied');
+      } else {
+        copyBtn.style.display = 'none';
+      }
+    }
+  } else {
+    if (cur) cur.textContent = currentModalIdx + 1;
+    if (tot) tot.textContent = data.items.length;
+    if (gh) {
+      gh.style.display = 'inline-flex';
+      gh.href = data.github || 'https://github.com/SubhadeepBhandari25';
+    }
+    if (pdfBtn) pdfBtn.style.display = 'none';
+    if (copyBtn) copyBtn.style.display = 'none';
+  }
+}
+
+function copyCertId(id, btn) {
+  if (!id) return;
+  navigator.clipboard.writeText(id).then(function() {
+    if (!btn) return;
+    const originalHtml = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<span>✓ Copied!</span>';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      btn.innerHTML = originalHtml;
+    }, 2200);
+  }).catch(function() {
+    const ta = document.createElement('textarea');
+    ta.value = id;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (btn) {
+      btn.classList.add('copied');
+      btn.innerHTML = '<span>✓ Copied!</span>';
+      setTimeout(function() {
+        btn.classList.remove('copied');
+      }, 2200);
+    }
+  });
+}
+
+function copyCertIdFromModal(btn) {
+  const id = btn.getAttribute('data-id');
+  if (!id) return;
+  copyCertId(id, btn);
+}
+
+function filterCerts(cat, btn) {
+  const buttons = document.querySelectorAll('.cert-filter-btn');
+  buttons.forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const cards = document.querySelectorAll('.cert-card');
+  cards.forEach(card => {
+    const cardCat = card.getAttribute('data-category');
+    if (cat === 'all' || cardCat === cat) {
+      card.classList.remove('is-hidden');
+    } else {
+      card.classList.add('is-hidden');
+    }
+  });
+}
+
+// Global modal keyboard support
+document.addEventListener('keydown', function(e) {
+  const modal = document.getElementById('projectModal');
+  if (!modal || !modal.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  else if (e.key === 'ArrowLeft') navigateModal(-1);
+  else if (e.key === 'ArrowRight') navigateModal(1);
+});
 
 function switchShowcaseTab(projKey, targetIdx) {
   const container = document.getElementById('proj-showcase-' + projKey);

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="umBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="umShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect x="16" y="16" width="768" height="488" rx="16" fill="url(#umBg)" stroke="#1e293b" stroke-width="6" filter="url(#umShadow)"/>
+
+  <!-- Left Header: Unified Mentor Logo -->
+  <g transform="translate(56, 44)">
+    <polygon points="20,0 40,12 40,36 20,48 0,36 0,12" fill="#1e3a8a"/>
+    <path d="M12 16 L20 22 L28 16 M20 22 L20 34" stroke="#ffffff" stroke-width="2.5" fill="none"/>
+    <text x="52" y="24" font-family="'Onest', sans-serif" font-size="22" font-weight="900" fill="#0f172a">UNIFIED MENTOR</text>
+    <text x="52" y="42" font-family="'Onest', sans-serif" font-size="9" font-weight="700" fill="#64748b" letter-spacing="2">YOUR SKILL, SUCCESS &amp; JOURNEY</text>
+  </g>
+
+  <!-- Right: Address & ID -->
+  <g transform="translate(520, 44)">
+    <text x="200" y="16" font-family="'Onest', sans-serif" font-size="10" font-weight="600" fill="#475569" text-anchor="end">DLF Forum, Cybercity, Gurugram</text>
+    <text x="200" y="32" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#1e3a8a" text-anchor="end">UNID: UMID23062699610</text>
+    <text x="200" y="48" font-family="'Onest', sans-serif" font-size="10" fill="#64748b" text-anchor="end">Date: 25/06/2026</text>
+  </g>
+
+  <!-- Letter Title & Body -->
+  <g transform="translate(56, 130)">
+    <text x="0" y="24" font-family="'Onest', sans-serif" font-size="14" font-weight="700" fill="#64748b">APPOINTMENT &amp; VERIFICATION LETTER</text>
+    <text x="0" y="56" font-family="'Onest', sans-serif" font-size="28" font-weight="900" fill="#0f172a">Dear Subhadeep Bhandari,</text>
+    
+    <rect x="0" y="74" width="688" height="180" rx="10" fill="#f1f5f9" stroke="#e2e8f0"/>
+    <text x="24" y="106" font-family="'Onest', sans-serif" font-size="14" font-weight="700" fill="#1e3a8a">Offer of Employment: Data Analyst Intern</text>
+    <text x="24" y="132" font-family="'Onest', sans-serif" font-size="12" fill="#334155">Duration: 4 Months • Effective Tenure: 01/07/2026 to 01/11/2026</text>
+    <text x="24" y="156" font-family="'Onest', sans-serif" font-size="12" fill="#334155">Core Responsibilities: Time-series forecasting, 260K+ record analysis, feature engineering,</text>
+    <text x="24" y="174" font-family="'Onest', sans-serif" font-size="12" fill="#334155">predictive decision-support systems, and operational Streamlit dashboard deployment.</text>
+
+    <text x="24" y="210" font-family="'Onest', sans-serif" font-size="12" font-weight="600" fill="#059669">✓ Officially verified &amp; successfully completed</text>
+  </g>
+
+  <!-- Signatory & Contacts -->
+  <g transform="translate(56, 420)">
+    <path d="M0 -5 Q20 -25 40 -5 T80 -15 T120 0" stroke="#1e3a8a" stroke-width="2.5" fill="none"/>
+    <text x="0" y="20" font-family="'Onest', sans-serif" font-size="12" font-weight="800" fill="#0f172a">Drishti Madaan</text>
+    <text x="0" y="34" font-family="'Onest', sans-serif" font-size="10" fill="#64748b">HR Manager • Unified Mentor Pvt. Ltd.</text>
+
+    <text x="688" y="20" font-family="'Onest', sans-serif" font-size="10" fill="#64748b" text-anchor="end">Tel: +91 9518856261 | hello@unifiedmentor.com</text>
+  </g>
+</svg>
