@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="deloitteBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#fafafa"/>
+    </linearGradient>
+    <filter id="shadowD" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Border Card Frame -->
+  <rect x="16" y="16" width="768" height="488" rx="12" fill="url(#deloitteBg)" stroke="#e5e7eb" stroke-width="2" filter="url(#shadowD)"/>
+
+  <!-- Left Accent Bar -->
+  <rect x="16" y="16" width="16" height="488" rx="4" fill="#000000"/>
+
+  <!-- Deloitte Logo -->
+  <g transform="translate(64, 56)">
+    <text x="0" y="38" font-family="'Onest', -apple-system, sans-serif" font-size="44" font-weight="900" fill="#000000" letter-spacing="-0.03em">Deloitte<tspan fill="#86bc25">.</tspan></text>
+  </g>
+
+  <!-- Recipient & Role Title -->
+  <g transform="translate(64, 150)">
+    <text x="0" y="0" font-family="'Onest', sans-serif" font-size="34" font-weight="800" fill="#111827">Subhadeep Bhandari</text>
+    <text x="0" y="44" font-family="'Onest', sans-serif" font-size="30" font-weight="700" fill="#1f2937">Data Analytics Job Simulation</text>
+    <line x1="0" y1="62" x2="670" y2="62" stroke="#e5e7eb" stroke-width="1.5"/>
+
+    <text x="0" y="96" font-family="'Onest', sans-serif" font-size="22" font-weight="500" fill="#374151">Certificate of Completion</text>
+    <text x="0" y="126" font-family="'Onest', sans-serif" font-size="16" font-weight="400" fill="#6b7280">November 15th, 2026</text>
+  </g>
+
+  <!-- Content Scope -->
+  <g transform="translate(64, 330)">
+    <text x="0" y="0" font-family="'Onest', sans-serif" font-size="13" fill="#6b7280">Over the period of November 2026, Subhadeep Bhandari has completed practical tasks in:</text>
+    <text x="0" y="28" font-family="'Onest', sans-serif" font-size="14" font-weight="700" fill="#111827">● Data analysis</text>
+    <text x="0" y="52" font-family="'Onest', sans-serif" font-size="14" font-weight="700" fill="#111827">● Forensic technology</text>
+  </g>
+
+  <!-- Signature Section -->
+  <g transform="translate(520, 310)">
+    <!-- Stylized signature -->
+    <path d="M10,35 Q30,10 60,30 T110,25 T150,35" fill="none" stroke="#333333" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="0" y1="52" x2="180" y2="52" stroke="#9ca3af" stroke-width="1"/>
+    <text x="0" y="70" font-family="'Onest', sans-serif" font-size="13" font-weight="700" fill="#111827">Tina McCreery</text>
+    <text x="0" y="86" font-family="'Onest', sans-serif" font-size="11" fill="#4b5563">Chief Human Resources Officer</text>
+    <text x="0" y="102" font-family="'Onest', sans-serif" font-size="11" font-weight="600" fill="#000000">Deloitte</text>
+  </g>
+
+  <!-- Verification Codes Footer -->
+  <g transform="translate(64, 468)">
+    <line x1="0" y1="-16" x2="670" y2="-16" stroke="#f3f4f6" stroke-width="1"/>
+    <text x="0" y="0" font-family="'Onest', monospace" font-size="10" fill="#9ca3af">
+      Enrolment Code: <tspan fill="#374151">6af88bcb291935b560e3b7ea</tspan> | User Code: <tspan fill="#374151">6ad44ba551a640ee73311bc1</tspan> | Issued by Forage
+    </text>
+  </g>
+</svg>

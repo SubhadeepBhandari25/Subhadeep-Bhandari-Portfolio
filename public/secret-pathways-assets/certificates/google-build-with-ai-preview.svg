@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="certBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Border Card Frame -->
+  <rect x="16" y="16" width="768" height="488" rx="16" fill="url(#certBg)" stroke="#222" stroke-width="8" filter="url(#shadow)"/>
+
+  <!-- Top branding header -->
+  <g transform="translate(56, 54)">
+    <!-- Google for Developers Logo Representation -->
+    <text x="0" y="24" font-family="'Onest', -apple-system, sans-serif" font-size="22" font-weight="700" fill="#4285F4">Google <tspan font-weight="400" fill="#5f6368">for Developers</tspan></text>
+    <rect x="235" y="10" width="38" height="14" rx="2" fill="#1e293b"/>
+    <text x="240" y="21" font-family="'Onest', sans-serif" font-size="9" font-weight="700" fill="#38bdf8">H2S</text>
+
+    <!-- Build with AI badge -->
+    <g transform="translate(500, -8)">
+      <rect x="0" y="0" width="168" height="42" rx="12" fill="none" stroke="#222" stroke-width="2.5"/>
+      <text x="32" y="19" font-family="'Onest', sans-serif" font-size="16" font-weight="800" fill="#222">Build</text>
+      <circle cx="95" cy="19" r="9" fill="#1a73e8"/>
+      <polygon points="95,13 97,17 101,19 97,21 95,25 93,21 89,19 93,17" fill="#ffffff"/>
+      <text x="32" y="36" font-family="'Onest', sans-serif" font-size="16" font-weight="800" fill="#222">with AI</text>
+      <rect x="0" y="48" width="168" height="22" rx="10" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+      <text x="46" y="63" font-family="'Onest', sans-serif" font-size="11" font-weight="700" fill="#15803d">Bootcamps</text>
+    </g>
+  </g>
+
+  <!-- Title -->
+  <text x="56" y="150" font-family="'Onest', sans-serif" font-size="44" font-weight="800" fill="#111827" letter-spacing="-0.02em">CERTIFICATE</text>
+  <text x="56" y="185" font-family="'Onest', sans-serif" font-size="20" font-weight="600" fill="#374151" letter-spacing="0.1em">OF PARTICIPATION</text>
+
+  <!-- Green dots badge -->
+  <g transform="translate(300, 210)">
+    <circle cx="10" cy="10" r="10" fill="#22c55e"/>
+    <circle cx="30" cy="10" r="10" fill="#22c55e"/>
+    <circle cx="50" cy="10" r="10" fill="#22c55e"/>
+  </g>
+
+  <!-- Recipient details -->
+  <text x="56" y="240" font-family="'Onest', sans-serif" font-size="14" fill="#6b7280">This is to certify that</text>
+  <text x="56" y="278" font-family="'Onest', sans-serif" font-size="24" font-weight="700" fill="#111827">Subhadeep Bhandari</text>
+
+  <text x="300" y="240" font-family="'Onest', sans-serif" font-size="14" fill="#374151">has successfully participated in</text>
+  <text x="300" y="260" font-family="'Onest', sans-serif" font-size="15" font-weight="700" fill="#111827">Build with AI Bootcamp, Bangalore</text>
+
+  <foreignObject x="300" y="280" width="420" height="120">
+    <p xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Onest',sans-serif;font-size:13px;line-height:1.6;color:#4b5563;margin:0;">
+      Through hands-on practice, the individual has demonstrated the technical skills required to build AI agents, architect workflows and integrate generative AI into production-ready systems.
+    </p>
+  </foreignObject>
+
+  <!-- Decorative globe icon -->
+  <g transform="translate(680, 160)">
+    <circle cx="20" cy="20" r="28" fill="none" stroke="#222" stroke-width="1.8"/>
+    <ellipse cx="20" cy="20" rx="14" ry="28" fill="none" stroke="#222" stroke-width="1.4"/>
+    <line x1="-8" y1="20" x2="48" y2="20" stroke="#222" stroke-width="1.4"/>
+    <path d="M20,60 L20,105 M12,72 L20,60 L28,72" fill="none" stroke="#222" stroke-width="2"/>
+  </g>
+
+  <!-- Footer bar with Certificate ID -->
+  <g transform="translate(56, 440)">
+    <rect x="0" y="0" width="180" height="34" rx="17" fill="#1f2937"/>
+    <text x="24" y="22" font-family="'Onest', sans-serif" font-size="13" font-weight="600" fill="#ffffff">Dated: 17/11/2026</text>
+
+    <circle cx="230" cy="17" r="18" fill="#ef4444" stroke="#222" stroke-width="2"/>
+
+    <text x="270" y="22" font-family="'Onest', monospace" font-size="12" fill="#4b5563">Certificate ID: <tspan font-weight="700" fill="#111827">2026H2S10BWAIBBLR-P00229</tspan></text>
+  </g>
+</svg>
